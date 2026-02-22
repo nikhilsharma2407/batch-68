@@ -11,3 +11,6 @@ git reset <filename> or . - unstage the changes
 git commit -m <message> - commit the staged files
 
 git checkout <filename> or . - undo the changes since last commit or staging
+
+git checkout -b <branchname>  create a new branch
+git checkout <branchname>  switch to branch
