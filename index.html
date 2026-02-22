@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning HTML</title>
+</head>
+
+<body>
+    <!-- Display info on page -->
+    <!-- Interact/navigation on the page -->
+    <!-- Embedding external sites on our page -->
+
+    <div>
+        <h1>this is h1 tag</h1>
+        <h2>this is h2 tag</h2>
+        <h3>this is h3 tag</h3>
+        <h4>this is h4 tag</h4>
+        <h5>this is h5 tag</h5>
+        <h6>this is h6 tag</h6>
+
+
+        <div>2 &lt; 5</div>
+
+        <p>Para  with lots of &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; whitespace</p>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <span style="background-color: yellow;">this is a
+                Span Tag</span> Tenetur quod, non explicabo fuga voluptate laboriosam ab corrupti nihil debitis nisi!
+        </p>
+
+    </div>
+
+    <a href="https://www.google.com/" target="frame1">Visit Google</a>
+    
+    <a href="https://www.google.com/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" height="100px">
+    </a>
+
+    <!-- inline vs block elements -->
+
+    <iframe name="frame1" src="https://en.wikipedia.org/wiki/HTML" height="500px" width="500px"></iframe>
+    <iframe src="https://www.google.com/" height="500px" width="500px"></iframe>
+
+    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/2jKKz2CAlio?si=JaOk0agR2sQtV_Dl"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+
+
+    <ul>
+        <li>List item 1</li>
+        <li>List item 2</li>
+        <li>List item 3</li>
+        <li>List item 4</li>
+        <li>List item 5</li>
+    </ul>
+
+    <ol start="5" type="i" reversed>
+        <li>List item 1</li>
+        <li>List item 2</li>
+        <li>List item 3</li>
+        <li>List item 4</li>
+        <li>List item 5</li>
+    </ol>
+
+    <form style="height: 600px; border: 1px solid; padding: 5px;">
+        <div>
+            <label aria-label="" for="username">Name</label>
+            <input maxlength="10" id="username" type="text" placeholder="Enter name">
+        </div>
+        <div>
+            <label for="exp">Experience</label>
+            <input id="exp" type="number" min="1" max="25" placeholder="Enter exp in yrs">
+        </div>
+        
+        <div>
+            <label for="pwd">Password</label>
+            <input id="pwd" type="password">
+            <button>Toggle</button>
+        </div>
+        
+        <div>
+            <label for="m">male</label>
+            <input id="m" type="radio" value="male" name="gender">
+            
+            <label for="f">female</label>
+            <input id="f" type="radio" value="female" name="gender">
+        </div>
+
+        <div>
+            <input id="tnc" type="checkbox">
+            <label for="tnc">I accept the Terms and Conditions</label>
+        </div>
+
+        <div>
+            <label  for="resume">Resume</label>
+            <input id="resume" type="file" accept=".docx,.pdf">
+        </div>
+    </form>
+
+   
+    <!-- dynamic units -->
+    <!-- 
+    2em-> 2 * font-size of parent element 
+    2rem -> 2rem-> 2* font-size of root element 16px for HTML element
+     -->
+     <div id="sibling-selector">
+        <div id="div-selector">
+            <span>left sibling of p</span>  <!--span A-->
+            <p style="font-size: 20px;">
+                <span style="font-size: 2em;"> <!--span B-->
+                    child of p, font-size parent
+                    <span style="font-size: 2rem;"> <!--span C-->
+                        span within span, my font-size is
+                    </span>
+                </span>
+
+            </p>
+            <span>Right siblings of p SPAN-1</span>
+            <span>Right siblings of p SPAN-2</span>
+        </div>
+    </div>
+
+    <!-- Sementic HTML -->
+
+    <section>
+    <header>Header</header>
+    <aside></aside>
+    <main>
+        <section>
+            <article>
+            </article>
+            <article>
+                <section></section>
+            </article>
+        </section>
+    </main>
+    <aside></aside>
+    <footer></footer>
+    </aside>
+
+
+    <section>Lorem ipsum dolor sit amet.</section>
+    <section>Lorem ipsum dolor sit amet.</section>
+
+</body>
+
+</html>

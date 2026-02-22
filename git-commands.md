@@ -1,0 +1,6 @@
+git init - initialise a repo
+git status - check the repo status
+git add <filename> <filename2>...<filenameN>  -> git add index.html git-commands.md  - start tracking the resp file
+git add . - add all files to staging
+
+git reset <filename> or . - unstage the changes
