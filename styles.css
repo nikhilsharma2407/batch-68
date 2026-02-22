@@ -1,0 +1,63 @@
+/* .form-input {
+    background-color: blue;
+} */
+
+/* i c/a e */
+
+/* 11 */
+/* input[type="password"] {
+    background-color: blueviolet;
+} */
+
+/* 010 */
+/* .password {
+    background-color: green;
+} */
+
+/* #pwd {
+    background-color: yellow;
+} */
+
+/* input {
+    background-color: red;
+} */
+
+div span {
+    background-color: blue;
+}
+
+div>span {
+    background-color: red;
+}
+
+p~span {
+    background-color: aqua;
+}
+
+p+span {
+    background-color: brown;
+}
+
+input:hover {
+    background-color: blue;
+}
+
+input:focus {
+    background-color: red;
+}
+
+p::selection {
+    background-color: yellow;
+}
+
+p::selection {
+    background-color: unset;
+}
+
+.table-rows:nth-child(even){
+    background-color: gray;
+}
+
+li::marker{
+    color: red ;
+}
