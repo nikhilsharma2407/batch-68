@@ -4,3 +4,4 @@ git add <filename> <filename2>...<filenameN>  -> git add index.html git-commands
 git add . - add all files to staging
 
 git reset <filename> or . - unstage the changes
+git commit -m <message> - commit the staged files
