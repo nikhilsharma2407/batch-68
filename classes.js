@@ -11,37 +11,45 @@ class Employee {
     console.log(`Hi I'm ${this.name} and my employee id is- ${this.id}`);
   }
   
+  greetArrowFn = () => {
+    console.log(`Hi I'm ${this.name} and my employee id is- ${this.id}`, this);
+  };
+
+
   getSalary() {
     console.log(this.#salary);
     return this.#salary;
   }
-  
+
   setSalary(salary) {
     this.#salary = salary;
   }
 }
 
+console.log("🚀 ~ typeof Employee:", typeof Employee)
 const emp1 = new Employee("abc", "E101");
 emp1.setSalary("$1000");
 const emp2 = new Employee("xyz", "E102");
 
-emp1.greet();
-emp2.greet();
+// emp1.greet();
+// emp2.greet();
 
 // emp1.#salary
-emp1.getSalary();
+// emp1.getSalary();
+
+emp1.greetArrowFn();
 
 class Manager extends Employee {
   constructor(name, id, dept) {
     super(name, id);
     this.dept = dept;
   }
-  
+
   getSalary() {
     console.log(super.getSalary() + "0");
   }
 }
 
 const manager = new Manager("mgr", "M101", "Engineering");
-manager.greet();
-manager.getSalary();
+// manager.greet();
+// manager.getSalary();
