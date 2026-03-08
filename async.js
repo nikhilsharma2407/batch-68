@@ -96,12 +96,12 @@ const fn2 = () => {
 //   } catch (error) {}
 // })();
 
-const rejectedPromise = new Promise((res, rej) => {
-  setTimeout(() => {
-    rej("User is not Authenticated");
-  }, 2000);
-});
-console.log("🚀 ~ rejectedPromise:", rejectedPromise);
+// const rejectedPromise = new Promise((res, rej) => {
+//   setTimeout(() => {
+//     rej("User is not Authenticated");
+//   }, 2000);
+// });
+// console.log("🚀 ~ rejectedPromise:", rejectedPromise);
 
 // rejectedPromise
 //   .then((data) => {
@@ -112,63 +112,69 @@ console.log("🚀 ~ rejectedPromise:", rejectedPromise);
 //   });
 
 // // // //   promise chaining
-// // // fetch(URL)
-// // //   .then((response) => {
-// // //     return response.json();
-// // //   })
-// // //   .then((readableData) => {
-// // //     console.log("🚀 ~ readableData:", readableData);
-// // //   })
-// // //   .catch((err) => {
-// // //     console.log(".catch callback, error -", err);
-// // //   });
+// const URL = "https://jsonplaceholder.typicode.com/users";
+// fetch(URL)
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((readableData) => {
+//     console.log("🚀 ~ readableData:", readableData);
+//   })
+//   .catch((err) => {
+//     console.log(".catch callback, error -", err);
+//   })
+//   .finally(() => {
+//     console.log("finally block, always run");
+//   });
 
 // // const promise = new Promise((resolve, reject) => {
 // //   resolve(123);
 // // });
 
-// // // const rejectedPromise = new Promise((res, rej) => {
-// // //   rej("rejected promise");
-// // // });
+// const rejectedPromise = new Promise((res, rej) => {
+//   rej("rejected promise");
+// });
 
-// // // // showLoader();
-// // // // promise
-// // // //   .then((data) => {console.log(data)})
-// // // //   .catch((err) => {console.log(err))})
-// // // //   .finally(() => {
-// // // //  hideLoader();
-// // // //   });
+// rejectedPromise.catch(console.log).finally(()=>console.log('finally block executed'))
 
-const URL = "https://jsonplaceholder.typicode.com/users";
-const myPromise = new Promise((res) => res("my Promise"));
+// showLoader();
+// promise
+//   .then((data) => {console.log(data)})
+//   .catch((err) => {console.log(err))})
+//   .finally(() => {
+//   hideLoader();
+//   });
 
-setTimeout(() => {
-  console.log("timeout");
-}, 0);
+// const myPromise = new Promise((res) => res("my Promise"));
 
-fetch(URL)
-  .then((data) => {
-    console.log("fetch.then callback");
-    return data.json();
-  })
-  .then((userData) => {
-    console.log("Network Response", userData);
-  });
+// setTimeout(() => {
+//   console.log("timeout");
+// }, 0);
 
-console.log("first");
-myPromise.then((data) => console.log(data));
-console.log("second");
-console.log("third");
+// fetch(URL)
+//   .then((data) => {
+//     console.log("fetch.then callback");
+//     return data.json();
+//   })
+//   .then((userData) => {
+//     console.log("Network Response", userData);
+//   });
+
+// console.log("first");
+// myPromise.then((data) => console.log(data));
+// console.log("second");
+// console.log("third");
 
 // let timer = 0;
 
-// // const intervalId = setInterval(() => {
-// //   if (timer > 5) {
-// //     console.log("terminate interval");
-// //     clearInterval(intervalId);
-// //   }
-// //   console.log(timer++);
-// // }, 1000);
+// const intervalId = setInterval(() => {
+//   if (timer > 4) {
+//     console.log("terminate interval");
+//     clearInterval(intervalId);
+//     return;
+//   }
+//   console.log(`time elapsed - ${++timer} seconds`);
+// }, 1000);
 
 // // const p1 = Promise.resolve("promise 1");
 // // const p2 = Promise.resolve("promise 2");
@@ -199,3 +205,52 @@ console.log("third");
 // // console.log("after promise");
 // // console.log("inside setTimeout");
 // // promise resolved
+
+const URL = "https://jsonplaceholder.typicode.com/users";
+// fetch(URL)
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((readableData) => {
+//     console.log("🚀 ~ readableData:", readableData);
+//   })
+//   .catch((err) => {
+//     console.log(".catch callback, error -", err);
+//   })
+//   .finally(() => {
+//     console.log("finally block, always run");
+//   });
+
+// (async () => {
+//   // same as
+//   // fetch(URL)
+//   //   .then((response) => {
+//   //     return response.json();
+//   //   })
+//   //   .then((readableData) => {
+//   //     console.log("🚀 ~ readableData:", readableData);
+//   //   })
+//   console.log("start");
+//   const response = await fetch(URL);
+//   console.log("🚀 ~ fn ~ response:", response);
+//   console.log("response fetched");
+//   const readableData = await response.json();
+//   console.log("🚀 ~ fn ~ readableData:", readableData[0]);
+// })();
+
+// fn();
+
+const rejectedPromise = new Promise((res, rej) => {
+  rej("rejected promise");
+});
+
+(async () => {
+  try {
+    const data = await rejectedPromise;
+    console.log("🚀 ~ data:", data);
+  } catch (error) {
+    console.log(error)
+  } finally {
+    console.log('finally block, always executed')
+  }
+})();

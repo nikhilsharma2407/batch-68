@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <title>Learning HTML</title>
+    <title>Learning HTML</title>    
+    <script defer src="./dom.js"></script>
 </head>
 
-<script src="async.js"></script>
 
 <body>
     <!-- Display info on page -->
@@ -26,7 +26,7 @@
 
         <div>2 &lt; 5</div>
 
-        <p>Para  with lots of &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; whitespace</p>
+        <p>Para with lots of &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; whitespace</p>
 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <span style="background-color: yellow;">this is a
                 Span Tag</span> Tenetur quod, non explicabo fuga voluptate laboriosam ab corrupti nihil debitis nisi!
@@ -35,7 +35,7 @@
     </div>
 
     <a href="https://www.google.com/" target="frame1">Visit Google</a>
-    
+
     <a href="https://www.google.com/" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" height="100px">
     </a>
@@ -67,7 +67,7 @@
         <li>List item 5</li>
     </ol>
 
-    <form style="height: 600px; border: 1px solid; padding: 5px;">
+    <form id="form" style="height: 600px; border: 1px solid; padding: 5px;">
         <div>
             <label aria-label="" for="username">Name</label>
             <input class="form-input" maxlength="10" id="username" type="text" placeholder="Enter name">
@@ -76,17 +76,17 @@
             <label for="exp">Experience</label>
             <input class="form-input" id="exp" type="number" min="1" max="25" placeholder="Enter exp in yrs">
         </div>
-        
+
         <div>
             <label for="pwd">Password</label>
             <input class="password" id="pwd" type="password">
-            <button>Toggle</button>
+            <button id="toggle-btn">Toggle</button>
         </div>
-        
+
         <div>
             <label for="m">male</label>
             <input class="form-input" id="m" type="radio" value="male" name="gender">
-            
+
             <label for="f">female</label>
             <input class="form-input" id="f" type="radio" value="female" name="gender">
         </div>
@@ -97,20 +97,21 @@
         </div>
 
         <div>
-            <label  for="resume">Resume</label>
+            <label for="resume">Resume</label>
             <input class="form-input" id="resume" type="file" accept=".docx,.pdf">
         </div>
+        <button id="submit">Submit</button>
     </form>
 
-   
+
     <!-- dynamic units -->
     <!-- 
     2em-> 2 * font-size of parent element 
     2rem -> 2rem-> 2* font-size of root element 16px for HTML element
      -->
-     <div id="sibling-selector">
+    <div id="sibling-selector">
         <div id="div-selector">
-            <span>left sibling of p</span>  <!--span A-->
+            <span>left sibling of p</span> <!--span A-->
             <p style="font-size: 20px;">
                 <span style="font-size: 2em;"> <!--span B-->
                     child of p, font-size parent
@@ -128,48 +129,50 @@
     <!-- Sementic HTML -->
 
     <section>
-    <header>Header</header>
-    <aside></aside>
-    <main>
-        <section>
-            <article>
-            </article>
-            <article>
-                <section></section>
-            </article>
-        </section>
-    </main>
-    <aside></aside>
-    <footer></footer>
-    </aside>
+        <header>Header</header>
+        <aside></aside>
+        <main>
+            <section>
+                <article>
+                </article>
+                <article>
+                    <section></section>
+                </article>
+            </section>
+        </main>
+        <aside></aside>
+        <footer></footer>
+        </aside>
 
 
-    <section>Lorem ipsum dolor sit amet.</section>
-    <section>Lorem ipsum dolor sit amet.</section>
+        <section>Lorem ipsum dolor sit amet.</section>
+        <section>Lorem ipsum dolor sit amet.</section>
 
 
-    <div>
-        <div class="table-rows">row-1</div>
-        <div class="table-rows">row-2</div>
-        <div class="table-rows">row-3</div>
-        <div class="table-rows">row-4</div>
-        <div class="table-rows">row-5</div>
-        <div class="table-rows">row-6</div>
-        <div class="table-rows">row-7</div>
-        <div class="table-rows">row-8</div>
-        <div class="table-rows">row-9</div>
-        <div class="table-rows">row-10</div>
-        <div class="table-rows">row-11</div>
-        <div class="table-rows">row-12</div>
-        <div class="table-rows">row-13</div>
-        <div class="table-rows">row-14</div>
-        <div class="table-rows">row-15</div>
-        <div class="table-rows">row-16</div>
-        <div class="table-rows">row-17</div>
-        <div class="table-rows">row-18</div>
-        <div class="table-rows">row-19</div>
-        <div class="table-rows">row-20</div>
-    </div>
+        <div>
+            <div class="table-rows">row-1</div>
+            <div class="table-rows">row-2</div>
+            <div class="table-rows">row-3</div>
+            <div class="table-rows">row-4</div>
+            <div class="table-rows">row-5</div>
+            <div class="table-rows">row-6</div>
+            <div class="table-rows">row-7</div>
+            <div class="table-rows">row-8</div>
+            <div class="table-rows">row-9</div>
+            <div class="table-rows">row-10</div>
+            <div class="table-rows">row-11</div>
+            <div class="table-rows">row-12</div>
+            <div class="table-rows">row-13</div>
+            <div class="table-rows">row-14</div>
+            <div class="table-rows">row-15</div>
+            <div class="table-rows">row-16</div>
+            <div class="table-rows">row-17</div>
+            <div class="table-rows">row-18</div>
+            <div class="table-rows">row-19</div>
+            <div class="table-rows">row-20</div>
+        </div>
+
+        <div style="margin: 100px 20px; cursor: pointer;" id="div1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, eveniet? <span id="span1">Click me</span> </div>
 
 </body>
 
