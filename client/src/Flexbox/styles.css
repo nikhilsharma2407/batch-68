@@ -1,0 +1,38 @@
+/* this is not being used added only as a reference */
+.container {
+    height: 800px;
+    border: 1px dashed black;
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* flex-direction: column; */
+}
+.flex-item {
+    border: 1px solid red;
+    height: 50px;
+    width: 50px;
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
+}
+
+
+.flex-item:nth-child(even) {
+    border: 1px solid red;
+    height: 150px;
+    width: 150px;
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
+}
+
+/* scss */
+
+.flex-item:nth-child(3n+1){
+    align-self: flex-start;
+}
+
+.flex-item:nth-child(3n+2){
+    align-self: center;
+}   
+
+.flex-item:nth-child(3n+3){
+    align-self: flex-end;
+}

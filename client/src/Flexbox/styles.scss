@@ -1,0 +1,154 @@
+@import "../common.scss";
+
+.container {
+  height: 800px;
+  border: 1px dashed black;
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+
+  .flex-item {
+    @include flex-item;
+
+    &:nth-child(3n + 1) {
+      align-self: flex-start;
+    }
+
+    &:nth-child(3n + 2) {
+      align-self: center;
+    }
+
+    &:nth-child(3n + 3) {
+      align-self: flex-end;
+    }
+  }
+}
+/* scss */
+
+.card {
+  background-color: rgb(45, 97, 66);
+  border-radius: 8px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 100px auto;
+  box-shadow: 0px 2px 5px 2px #aaaaaa;
+  padding: 1rem;
+
+  &__content {
+    padding: 16px;
+  }
+
+  &__title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  &__text {
+    font-size: 20px;
+    color: gray;
+    text-align: center;
+  }
+
+  &__button {
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    padding: 10px;
+    text-transform: uppercase;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px 2px #aaaaaa;
+    font-weight: bold;
+
+    &--primary {
+      background-color: blue;
+      margin: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+// without scss
+
+.card__title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card__text {
+  font-size: 20px;
+  color: gray;
+  text-align: center;
+}
+
+.card__button {
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+  padding: 10px;
+  text-transform: uppercase;
+  margin: 10px;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px 2px #aaaaaa;
+  font-weight: bold;
+}
+
+.card__button--primary {
+  background-color: blue;
+  margin: 10px;
+  cursor: pointer;
+}
+
+// /* The Elements follow the naming convention
+//         mentioned as: .block__element--modifier */
+// .card {
+//   background-color: rgb(45, 97, 66);
+//   border-radius: 8px;
+//   width: 50%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 100px auto;
+//   box-shadow: 0px 2px 5px 2px #aaaaaa;
+//   padding: 1rem;
+// }
+
+// .card__content {
+//   padding: 16px;
+// }
+
+// .card__title {
+//   font-size: 30px;
+//   font-weight: bold;
+//   margin-bottom: 8px;
+// }
+
+// .card__text {
+//   font-size: 20px;
+//   color: gray;
+//   text-align: center;
+// }
+
+// .card__button {
+//   background-color: white;
+//   color: black;
+//   border-radius: 4px;
+//   padding: 10px;
+//   text-transform: uppercase;
+//   margin: 10px;
+//   cursor: pointer;
+//   box-shadow: 0px 2px 5px 2px #aaaaaa;
+//   font-weight: bold;
+// }
+
+// .card__button--primary {
+//   background-color: blue;
+//   margin: 10px;
+//   cursor: pointer;
+// }
