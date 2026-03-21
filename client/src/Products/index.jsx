@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import Product from './Product';
+import ProductCard from './ProductCard';
+import { Container, Row } from 'react-bootstrap';
 
 const Products = () => {
     const URL = 'https://fakestoreapi.com/products';
@@ -19,9 +20,11 @@ const Products = () => {
 
 
     return (
-        <>
-            {products.map((product) => <Product key={product.id} product={product} />)}
-        </>
+        <Container fluid>
+            <Row>
+                {products.map((product) => <ProductCard key={product.id} {...product} />)}
+            </Row>
+        </Container>
     )
 }
 

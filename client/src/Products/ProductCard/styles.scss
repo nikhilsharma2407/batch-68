@@ -1,0 +1,42 @@
+.product-card {
+
+  &:hover{
+    cursor: pointer;
+    box-shadow:gray 10px 10px 10px 3px;
+    transition: ease-in-out 0.3s;
+  }
+
+  .title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .image {
+    height: 250px;
+    object-fit: contain;
+  }
+
+  .content {
+    height: 110px;
+
+    .text {
+      font-size: 14px;
+      color: gray;
+    }
+    .price {
+      font-weight: bolder;
+    }
+
+    .description {
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 13px;
+    }
+  }
+
+  .footer {
+    height: 56px;
+  }
+}

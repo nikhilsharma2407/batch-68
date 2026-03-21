@@ -10,9 +10,6 @@ const App = () => {
 
   return (
     <>
-      {/* <button onClick={() => setShowComponent(!showComponent)}>{showComponent ? 'Hide' : 'Show'} Component</button>
-      {showComponent ? <Component1 name={name} /> : null} */}
-      {/* <Flexbox /> */}
       <Products />
     </>
 
