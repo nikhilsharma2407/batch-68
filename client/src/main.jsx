@@ -3,12 +3,10 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import routes from './routes';
-import { Outlet } from 'react-bootstrap-icons';
-import Flexbox from './Flexbox';
-import Products from './Products';
-import Routing from './Routing';
 
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -19,7 +17,7 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')).render(
-  <>
+  <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
 
 
@@ -33,5 +31,5 @@ createRoot(document.getElementById('root')).render(
         </Route >
       </Routes>
     </BrowserRouter> */}
-  </>,
+  </QueryClientProvider>,
 )

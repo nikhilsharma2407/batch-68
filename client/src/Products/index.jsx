@@ -2,21 +2,23 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard';
 import { Container, Row } from 'react-bootstrap';
+import { useQuery } from '@tanstack/react-query';
+
+const fetchProducts = async () => {
+    const res = await axios.get('https://fakestoreapi.com/products');
+    return res.data;
+};
 
 const Products = () => {
-    const URL = 'https://fakestoreapi.com/products';
+    const { data: products = [], isLoading, isError } = useQuery({
+        queryKey: ['products'],
+        queryFn: fetchProducts,
+        staleTime: 600_000  // 10 minutes, Infinity is also accepted value
+        // staleTime: Infinity  // fetch once and always serve from cache
+    });
 
-    const [products, setProducts] = useState([]);
-
-
-    useEffect(() => {
-        (async () => {
-            const { data } = await axios.get(URL)
-            console.log("🚀 ~ Products ~ data:", data)
-            setProducts(data);
-        })();
-    }, []);
-
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>Something went wrong.</p>;
 
 
     return (

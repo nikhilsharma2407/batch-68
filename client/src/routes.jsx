@@ -5,6 +5,7 @@ import Orders from "./Orders";
 import Products from "./Products";
 import ProtectedRoute from "./ProtectedRoute";
 import Routing from "./Routing";
+import Signup from "./Signup";
 
 const routes = [
     {
@@ -22,6 +23,10 @@ const routes = [
     {
         path: 'login',
         element: <Login />
+    },
+    {
+        path: 'signup',
+        element: <Signup />
     },
 
     {
