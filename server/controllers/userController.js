@@ -1,24 +1,22 @@
-const users = [];
+import UserModel from "../UserModel.js";
+import { errorCreator, responseCreator, sanitizeUserData } from "../utils.js";
 
-export const login = (req, res) => {
+export const login = async (req, res) => {
     const { username, password } = req.body;
-    const userData = users.find(u => u.username === username);
-    if (!userData) {
-        res.status(404);
-        res.send("User account not found!!!")
-    } else if (userData.password !== password) {
-        res.status(401);
-        res.send("Incorrect Password!!!")
-    } else if (userData.password === password) {
+    const userData = await UserModel.findUser(username);
+
+    if (userData.password !== password) {
+        errorCreator('Incorrect Password', 401)
+    } else {
         res.status(200);
-        const { password: dbStoredPwd, ...sanitizedUser } = userData
-        res.send({ message: "Loggedin successfully", data: sanitizedUser })
+        res.send(responseCreator(`${username} logged in successfully`, sanitizeUserData(userData)))
     }
 };
 
-export const signup = (req, res) => {
+export const signup = async (req, res) => {
     const userdata = req.body;
-    // imitate db save;
-    users.push(userdata);
-    res.send({ message: `${userdata.username} signed up successfully!!!`, data: users });
+    const data = await UserModel.createUserAcc(userdata);
+    if (data) {
+        res.send({ message: `${data.username} signed up successfully!!!` });
+    }
 };
