@@ -1,4 +1,5 @@
 export const sanitizeUserData = (userData) => {
+    if (!userData) return null;
     const { password, ...sanitizedUserData } = userData?.toObject();
 
     return sanitizedUserData

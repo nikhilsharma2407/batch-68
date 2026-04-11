@@ -1,9 +1,11 @@
 import express from "express";
-import { addToCart, getCart } from "../controllers/cartController.js";
+import { addToCart, clearCart, getCart } from "../controllers/cartController.js";
+import authController from "../controllers/authController.js";
 const cartRouter = express.Router();
 
 
-cartRouter.get('/', getCart);
-cartRouter.post('/add', addToCart);
+cartRouter.get('/', authController, getCart);
+cartRouter.post('/add', authController, addToCart);
+cartRouter.put('/clear', authController, clearCart);
 
 export default cartRouter

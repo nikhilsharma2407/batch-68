@@ -1,5 +1,5 @@
 import mongoose, { model, Schema, Types } from "mongoose";
-import { sanitizeUserData } from "./utils.js";
+import { sanitizeUserData } from "./utils/utils.js";
 
 const userSchema = new Schema({
     username: {
@@ -38,7 +38,7 @@ userSchema.statics.getCart = async function (username) {
 };
 
 userSchema.statics.addToCart = async function (username, product) {
-    const userData = await this.findOneAndUpdate({ username, "cart.items.id": { $ne: product.id }}, {
+    const userData = await this.findOneAndUpdate({ username, "cart.items.id": { $ne: product.id } }, {
         $inc: {
             "cart.totalQuantity": 1,
             "cart.totalPrice": product.price
@@ -46,8 +46,17 @@ userSchema.statics.addToCart = async function (username, product) {
         $addToSet: { "cart.items": { ...product, quantity: 1 } }
     }, { new: true });
 
+    return sanitizeUserData(userData)?.cart
+};
 
-    return sanitizeUserData(userData).cart
+userSchema.statics.clearCart = async function (username) {
+    const userData = await this.findOneAndUpdate({ username }, {
+        $set: {
+            cart: { items: [], totalQuantity: 0, totalPrice: 0 }
+        }
+    }, { new: true });
+    console.log("🚀 ~ userData:", userData)
+    return sanitizeUserData(userData)?.cart
 };
 
 const UserModel = model('user', userSchema);
