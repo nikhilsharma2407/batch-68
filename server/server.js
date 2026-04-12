@@ -5,6 +5,7 @@ import router from "./router.js";
 import userRouter from "./routers/userRouter.js";
 import { errorHandler } from "./errorHandler.js";
 import cartRouter from "./routers/cartRouter.js";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
@@ -12,6 +13,8 @@ const app = express();
 // this middleware applies to all requests
 // allows our server to parse the req.body
 app.use(express.json());
+// allows our server to parse the req.cookies
+app.use(cookieParser())
 
 // this middleware only applies to requests with path as /router
 

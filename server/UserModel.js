@@ -14,7 +14,8 @@ const userSchema = new Schema({
         items: [Object],
         totalPrice: { type: Number, default: 0 },
         totalQuantity: { type: Number, default: 0 },
-    }
+    },
+    secret:String,
 });
 
 userSchema.statics.createUserAcc = async function (userData) {
@@ -55,9 +56,18 @@ userSchema.statics.clearCart = async function (username) {
             cart: { items: [], totalQuantity: 0, totalPrice: 0 }
         }
     }, { new: true });
-    console.log("🚀 ~ userData:", userData)
     return sanitizeUserData(userData)?.cart
 };
+
+userSchema.statics.updateUserAcc = async function (username, data) {
+    const updateData = await this.updateOne({ username }, {
+        $set: data
+    });
+
+    if (updateData.modifiedCount){
+        return true
+    }
+}
 
 const UserModel = model('user', userSchema);
 

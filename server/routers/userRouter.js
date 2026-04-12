@@ -1,12 +1,16 @@
 import express from "express";
-import { login, signup } from "../controllers/userController.js";
+import { getQRcode, login, loginWithCookie, signup, twoFAsetup } from "../controllers/userController.js";
 import { addToCart } from "../controllers/cartController.js";
 import authController from "../controllers/authController.js";
 const userRouter = express.Router();
 
-userRouter.post('/login', login)
-userRouter.post('/signup', signup)
-userRouter.post('/add-to-cart', authController, addToCart)
+userRouter.get('/login', authController, loginWithCookie);
+userRouter.post('/login', login);
+userRouter.post('/signup', signup);
+userRouter.post('/add-to-cart', authController, addToCart);
+
+userRouter.get('/qr-code', authController, getQRcode);
+userRouter.post('/2fa-setup', authController, twoFAsetup);
 
 
 export default userRouter;

@@ -3,7 +3,7 @@ import { responseCreator } from "../utils/utils.js";
 
 export const getCart = async (req, res, next) => {
     try {
-        const { username } = req.body
+        const { username } = res.locals
         const data = await UserModel.getCart(username);
         res.send(data);
     } catch (error) {
@@ -13,7 +13,8 @@ export const getCart = async (req, res, next) => {
 
 export const addToCart = async (req, res, next) => {
     try {
-        const { username, product } = req.body
+        const { username } = res.locals;
+        const { product } = req.body
         const cartData = await UserModel.addToCart(username, product)
         console.log("🚀 ~ addToCart ~ cartData:", cartData)
         const message = cartData ? `${product.title} added to cart` : `${product.title} already exists in cart`;
@@ -26,10 +27,10 @@ export const addToCart = async (req, res, next) => {
 
 export const clearCart = async (req, res, next) => {
     try {
-        const { username } = req.body
+        const { username } = res.locals
         const cartData = await UserModel.clearCart(username)
         console.log("🚀 ~ clearCart ~ cartData:", cartData)
-        res.send(responseCreator(`cart cleared`, cartData))
+        res.send(responseCreator(`cart cleared for ${username}`, cartData))
     } catch (error) {
         next(error)
     }
