@@ -9,7 +9,7 @@ import Signup from "./Signup";
 
 const routes = [
     {
-        path: 'products',
+        path: '/',
         element: <Products />
     },
     {

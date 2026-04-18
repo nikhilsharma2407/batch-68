@@ -9,13 +9,14 @@ export const login = async (req, res, next) => {
 
         const { username, password } = req.body;
         const userData = await UserModel.findUser(username);
-
+        
         const isPasswordCorrect = await verifyPassword({ password, passwordHash: userData.password })
 
         if (isPasswordCorrect) {
             res.status(200);
             const token = generateToken(userData);
             const data = sanitizeUserData(userData);
+            console.log(data);
             res.cookie('authToken', token, {
                 maxAge: 3600_000,
                 // client cannot read httpOnly cookies
@@ -80,12 +81,37 @@ export const twoFAsetup = async (req, res, next) => {
         const { secret } = req.cookies;
         const isVerified = verifyOTP(secret, otp);
         if (isVerified) {
-            const isUpdated = await UserModel.updateUserAcc(username, {secret});
+            const isUpdated = await UserModel.updateUserAcc(username, { secret });
             if (isUpdated) {
+                res.clearCookie('secret');
                 res.send(responseCreator('2FA Setup complete'));
             }
         } else {
-            errorCreator('Incorrect OTP, please try again');
+            errorCreator('Incorrect OTP, please try again', 401);
+        }
+    } catch (error) {
+        next(error)
+    }
+};
+
+export const resetPassword = async (req, res, next) => {
+    try {
+        const { username, newPassword, otp } = req.body;
+
+        const userData = await UserModel.findUser(username);
+
+        const { secret } = userData;
+
+        const isVerified = verifyOTP(secret, otp);
+        if (isVerified) {
+            const pwdHash = await genPasswordHash(newPassword);
+            const isUpdated = await UserModel.updateUserAcc(username, { password: pwdHash });
+            // check if newPassword is same as old password
+            if (isUpdated) {
+                res.send(responseCreator(`Password reset successfully for ${username}`));
+            }
+        } else {
+            errorCreator('Incorrect OTP, please try again', 401);
         }
     } catch (error) {
         next(error)

@@ -1,20 +1,26 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, FormControl, FormGroup, FormLabel, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router'
+import { axiosInstance, ENDPOINTS } from './apiUtil';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   const { state } = useLocation();
-  console.log("🚀 ~ Login ~ state:", state)
   const navigate = useNavigate();
 
-  const onLogin = () => {
-    setTimeout(() => {
-      sessionStorage.setItem('isLoggedIn', true);
-      if (state) {
-        navigate(state);
-      }
-    }, 1000);
-  }
+  const onLogin = async () => {
+    const payload = { username, password };
+    const { data } = (await axiosInstance.post(ENDPOINTS.USER.LOGIN, payload));
+    console.log("🚀 ~ onLogin ~ data:", data)
+    if (state) {
+      navigate(state);
+    }
+  };
+
+  const isValid = username && password;
 
   return (
     <Container fluid>
@@ -25,16 +31,16 @@ const Login = () => {
             <CardBody>
               <FormGroup controlId='username' className='mb-3'>
                 <FormLabel>username</FormLabel>
-                <FormControl placeholder='Enter username' />
+                <FormControl onChange={e => setUsername(e.target.value)} placeholder='Enter username' />
               </FormGroup>
 
               <FormGroup controlId='password' className='mb-3'>
                 <FormLabel>password</FormLabel>
-                <FormControl placeholder='Enter password' type='password' />
+                <FormControl onChange={e => setPassword(e.target.value)} placeholder='Enter password' type='password' />
               </FormGroup>
             </CardBody>
             <CardFooter>
-              <Button variant='outline-primary' onClick={onLogin}>Login</Button>
+              <Button variant='outline-primary' disabled={!isValid} onClick={onLogin}>Login</Button>
             </CardFooter>
           </Card>
         </Col>

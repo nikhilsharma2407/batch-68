@@ -1,6 +1,6 @@
 export const sanitizeUserData = (userData) => {
     if (!userData) return null;
-    const { password, ...sanitizedUserData } = userData?.toObject();
+    const { password, secret ,...sanitizedUserData } = userData?.toObject();
 
     return sanitizedUserData
 }

@@ -6,9 +6,14 @@ import userRouter from "./routers/userRouter.js";
 import { errorHandler } from "./errorHandler.js";
 import cartRouter from "./routers/cartRouter.js";
 import cookieParser from "cookie-parser";
-
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 // this middleware applies to all requests
 // allows our server to parse the req.body
@@ -23,7 +28,7 @@ app.use('/router', router)
 app.use('/user', userRouter)
 app.use('/cart', cartRouter)
 
-app.use((req,res, next)=>{
+app.use((req, res, next) => {
   console.log('another global handler before errorHandler')
   res.send('global middleware')
 })

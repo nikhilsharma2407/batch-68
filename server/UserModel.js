@@ -12,10 +12,12 @@ const userSchema = new Schema({
     password: { type: String, required: [true, "is required"] },
     cart: {
         items: [Object],
-        totalPrice: { type: Number, default: 0 },
+        totalPrice: { type: Schema.Types.Decimal128, set: (v) => v.toFixed(2), get: (v) => parseFloat(v), default: 0 },
         totalQuantity: { type: Number, default: 0 },
     },
-    secret:String,
+    secret: String,
+}, {
+    toObject: { getters: true }
 });
 
 userSchema.statics.createUserAcc = async function (userData) {
@@ -30,6 +32,7 @@ userSchema.statics.findUser = async function (username) {
         error.status = 404;
         throw error
     }
+    console.log('db', user);
     return user;
 };
 
@@ -50,6 +53,104 @@ userSchema.statics.addToCart = async function (username, product) {
     return sanitizeUserData(userData)?.cart
 };
 
+userSchema.statics.increment = async function (username, product) {
+    const userData = await this.findOneAndUpdate({ username, "cart.items.id": product.id }, {
+        $inc: {
+            "cart.totalQuantity": 1,
+            "cart.items.$.quantity": 1,
+            "cart.items.$.price": product.price,
+            "cart.totalPrice": product.price,
+        },
+    }, { new: true });
+
+    return sanitizeUserData(userData)?.cart
+};
+
+userSchema.statics.removeFromCart = async function (username, productId) {
+
+    const [userData] = await this.aggregate([
+        {
+            $match: {
+                username
+            }
+        },
+        {
+            $unwind: {
+                path: "$cart.items",
+            }
+        },
+        {
+            $match: {
+                "cart.items.id": productId
+            }
+        },
+        {
+            $project: {
+                "cart.items.quantity": true,
+                "cart.items.price": true,
+            }
+        }
+    ]);
+    console.log("🚀 ~ userData:", userData)
+
+    const product = userData?.cart?.items;
+    console.log("🚀 ~ product:", product)
+
+    const cartData = await this.findOneAndUpdate({ username }, {
+        $pull: { "cart.items": { id: productId } },
+        $inc: {
+            "cart.totalQuantity": -product.quantity,
+            "cart.totalPrice": -product.price,
+        }
+    }, { new: true });
+
+    return sanitizeUserData(cartData)?.cart
+}
+
+userSchema.statics.decrement = async function (username, product) {
+
+    const [userData] = await this.aggregate([
+        {
+            $match: {
+                username
+            }
+        },
+        {
+            $unwind: {
+                path: "$cart.items",
+            }
+        },
+        {
+            $match: {
+                "cart.items.id": product.id
+            }
+        },
+        {
+            $project: {
+                "cart.items.quantity": true,
+            }
+        }
+    ]);
+
+    const productInCart = userData?.cart?.items;
+    console.log("🚀 ~ product:", product)
+
+    if (productInCart.quantity === 1) {
+        return this.removeFromCart(username, product.id)
+    }
+    const cartData = await this.findOneAndUpdate({ username, "cart.items.id": product.id }, {
+        $inc: {
+            "cart.totalQuantity": -1,
+            "cart.items.$.quantity": -1,
+            "cart.items.$.price": -product.price,
+            "cart.totalPrice": -product.price,
+        },
+    }, { new: true });
+
+
+    return sanitizeUserData(cartData)?.cart
+}
+
 userSchema.statics.clearCart = async function (username) {
     const userData = await this.findOneAndUpdate({ username }, {
         $set: {
@@ -64,7 +165,7 @@ userSchema.statics.updateUserAcc = async function (username, data) {
         $set: data
     });
 
-    if (updateData.modifiedCount){
+    if (updateData.modifiedCount) {
         return true
     }
 }

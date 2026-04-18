@@ -1,263 +1,300 @@
-// // /* global use, db */
-// // // MongoDB Playground
-// // // To disable this template go to Settings | MongoDB | Use Default Template For Playground.
-// // // Make sure you are connected to enable completions and to be able to run a playground.
-// // // Use Ctrl+Space inside a snippet or a string literal to trigger completions.
-// // // The result of the last command run in a playground is shown on the results panel.
-// // // By default the first 20 documents will be returned with a cursor.
-// // // Use 'console.log()' to print to the debug output.
-// // // For more documentation on playgrounds please refer to
-// // // https://www.mongodb.com/docs/mongodb-vscode/playgrounds/
+// // // /* global use, db */
+// // // // MongoDB Playground
+// // // // To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// // // // Make sure you are connected to enable completions and to be able to run a playground.
+// // // // Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// // // // The result of the last command run in a playground is shown on the results panel.
+// // // // By default the first 20 documents will be returned with a cursor.
+// // // // Use 'console.log()' to print to the debug output.
+// // // // For more documentation on playgrounds please refer to
+// // // // https://www.mongodb.com/docs/mongodb-vscode/playgrounds/
 
-// // // Select the database to use.
-// // use('mongodbVSCodePlaygroundDB');
+// // // // Select the database to use.
+// // // use('mongodbVSCodePlaygroundDB');
 
-// // db.sales.drop();
-// // // Insert a few documents into the sales collection.
-// // db.getCollection('sales').insertMany([
-// //   { 'item': 'abc', 'price': 10, 'quantity': 2, 'date': new Date('2014-03-01T08:00:00Z') },
-// //   { 'item': 'jkl', 'price': 20, 'quantity': 1, 'date': new Date('2014-03-01T09:00:00Z') },
-// //   { 'item': 'xyz', 'price': 5, 'quantity': 10, 'date': new Date('2014-03-15T09:00:00Z') },
-// //   { 'item': 'xyz', 'price': 5, 'quantity': 20, 'date': new Date('2014-04-04T11:21:39.736Z') },
-// //   { 'item': 'abc', 'price': 10, 'quantity': 10, 'date': new Date('2014-04-04T21:23:13.331Z') },
-// //   { 'item': 'def', 'price': 7.5, 'quantity': 5, 'date': new Date('2015-06-04T05:08:13Z') },
-// //   { 'item': 'def', 'price': 7.5, 'quantity': 10, 'date': new Date('2015-09-10T08:43:00Z') },
-// //   { 'item': 'abc', 'price': 10, 'quantity': 5, 'date': new Date('2016-02-06T20:20:13Z') },
-// // ]);
+// // // db.sales.drop();
+// // // // Insert a few documents into the sales collection.
+// // // db.getCollection('sales').insertMany([
+// // //   { 'item': 'abc', 'price': 10, 'quantity': 2, 'date': new Date('2014-03-01T08:00:00Z') },
+// // //   { 'item': 'jkl', 'price': 20, 'quantity': 1, 'date': new Date('2014-03-01T09:00:00Z') },
+// // //   { 'item': 'xyz', 'price': 5, 'quantity': 10, 'date': new Date('2014-03-15T09:00:00Z') },
+// // //   { 'item': 'xyz', 'price': 5, 'quantity': 20, 'date': new Date('2014-04-04T11:21:39.736Z') },
+// // //   { 'item': 'abc', 'price': 10, 'quantity': 10, 'date': new Date('2014-04-04T21:23:13.331Z') },
+// // //   { 'item': 'def', 'price': 7.5, 'quantity': 5, 'date': new Date('2015-06-04T05:08:13Z') },
+// // //   { 'item': 'def', 'price': 7.5, 'quantity': 10, 'date': new Date('2015-09-10T08:43:00Z') },
+// // //   { 'item': 'abc', 'price': 10, 'quantity': 5, 'date': new Date('2016-02-06T20:20:13Z') },
+// // // ]);
 
-// // // SELECT * FROM <TABLE_NAME> -> Select all
-// // db.sales.find();
+// // // // SELECT * FROM <TABLE_NAME> -> Select all
+// // // db.sales.find();
 
-// // // filter
-// // db.sales.find({}, { _id: 0, item: 1, price: 1 });
-// // // Tables -> Collections
-// // // Rows -> documents
+// // // // filter
+// // // db.sales.find({}, { _id: 0, item: 1, price: 1 });
+// // // // Tables -> Collections
+// // // // Rows -> documents
 
-// // // comparision operators 
+// // // // comparision operators 
+// // // /**
+// // //  * $gt - greater than 
+// // //  * $lt - less than 
+// // //  * $gte - greater than or equal
+// // //  * $lte - less than or equal
+// // //  * $ne - not equal
+// // //  * $eq 
+// // //  */
+
+// // // db.sales.find({ quantity: { $lte: 5 } }, { _id: 0 })
+// // // db.sales.find({ price: { $gte: 10 } }, { _id: 0, price: 1 })
+
+// // // // multiple conditions
+// // // // $and - [<cond1>, <cond2>] 
+// // // // $or - [<cond1>, <cond2>] 
+// // // db.sales.find({
+// // //   $or: [{ quantity: { $lte: 5 } }, { price: { $gte: 10 } }]
+// // // }, { _id: 0 });
+
+// // // db.sales.find({
+// // //   $and: [{ quantity: { $lte: 5 } }, { price: { $gte: 10 } }]
+// // // }, { _id: 0 });
+
+// // // db.sales.find({ quantity: { $lte: 5 }, price: { $gte: 10 } }, { _id: 0 });
+
+// // // // db.sales.findOne({ price: { $gte: 10 } });
+// // // db.sales.find({ item: "jkl" });
+
+// // // // update queries
+// // // // $inc -> incrememt 
+// // // // There is no $dec operator, simply use the $inc operator with -ve value
+// // // // $mul -> multiplications
+
+// // // // for items where qty < 10, order more of those
+
+// // // db.sales.updateMany({ quantity: { $lt: 10 } }, { $inc: { quantity: 10 } });
+// // // db.sales.find({}, { _id: 0, })
+
+// // // // 10% discount on items priced above 10;
+
+// // // db.sales.updateMany({ price: { $gte: 10 } }, { $mul: { price: 0.9 } });
+// // // db.sales.find({}, { _id: 0, date: 0 });
+
+// // // Array operators -
+
 // // /**
-// //  * $gt - greater than 
-// //  * $lt - less than 
-// //  * $gte - greater than or equal
-// //  * $lte - less than or equal
-// //  * $ne - not equal
-// //  * $eq 
+// //  * $push - inserts an element at the end of array
+// //  * $addToSet - add an element if it doesn't exist in array, won't push element if it already exists
+// //  * $pull - removes a matching element from array
+// //  * $pullAll - remove multiple matching elements from array
+// //  * $pop (1/-1) - removes the last or first element from array
 // //  */
 
-// // db.sales.find({ quantity: { $lte: 5 } }, { _id: 0 })
-// // db.sales.find({ price: { $gte: 10 } }, { _id: 0, price: 1 })
+// // // db.users.drop();
+// // // db.users.insertOne({
+// // //   name: "test",
+// // //   username: "test",
+// // //   cart: [],
+// // //   discounts: ["HDFC", 'SBI', 'AXIS', 'ICICI']
+// // // })
 
-// // // multiple conditions
-// // // $and - [<cond1>, <cond2>] 
-// // // $or - [<cond1>, <cond2>] 
-// // db.sales.find({
-// //   $or: [{ quantity: { $lte: 5 } }, { price: { $gte: 10 } }]
-// // }, { _id: 0 });
+// // // db.users.insertOne({
+// // //   name: "test",
+// // //   username: "test",
+// // //   cart: {
+// // //     items: []
+// // //   },
+// // //   discounts: ["HDFC", 'SBI', 'AXIS', 'ICICI']
+// // // })
 
-// // db.sales.find({
-// //   $and: [{ quantity: { $lte: 5 } }, { price: { $gte: 10 } }]
-// // }, { _id: 0 });
-
-// // db.sales.find({ quantity: { $lte: 5 }, price: { $gte: 10 } }, { _id: 0 });
-
-// // // db.sales.findOne({ price: { $gte: 10 } });
-// // db.sales.find({ item: "jkl" });
-
-// // // update queries
-// // // $inc -> incrememt 
-// // // There is no $dec operator, simply use the $inc operator with -ve value
-// // // $mul -> multiplications
-
-// // // for items where qty < 10, order more of those
-
-// // db.sales.updateMany({ quantity: { $lt: 10 } }, { $inc: { quantity: 10 } });
-// // db.sales.find({}, { _id: 0, })
-
-// // // 10% discount on items priced above 10;
-
-// // db.sales.updateMany({ price: { $gte: 10 } }, { $mul: { price: 0.9 } });
-// // db.sales.find({}, { _id: 0, date: 0 });
-
-// // Array operators -
-
-// /**
-//  * $push - inserts an element at the end of array
-//  * $addToSet - add an element if it doesn't exist in array, won't push element if it already exists
-//  * $pull - removes a matching element from array
-//  * $pullAll - remove multiple matching elements from array
-//  * $pop (1/-1) - removes the last or first element from array
-//  */
-
-// // db.users.drop();
-// // db.users.insertOne({
-// //   name: "test",
-// //   username: "test",
-// //   cart: [],
-// //   discounts: ["HDFC", 'SBI', 'AXIS', 'ICICI']
-// // })
-
-// // db.users.insertOne({
-// //   name: "test",
-// //   username: "test",
-// //   cart: {
-// //     items: []
-// //   },
-// //   discounts: ["HDFC", 'SBI', 'AXIS', 'ICICI']
-// // })
-
-const product1 = {
-  price: 109.95,
-  title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-  id: 1,
-  description:
-    "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-  image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
-  category: "men's clothing",
-  rating: {
-    rate: 3.9,
-    count: 120,
-  },
-};
-
-// const product2 = {
-//   id: 2,
-//   title: "Mens Casual Premium Slim Fit T-Shirts ",
-//   price: 22.3,
+// const product1 = {
+//   price: 109.95,
+//   title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+//   id: 1,
 //   description:
-//     "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+//     "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+//   image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
 //   category: "men's clothing",
-//   rating: { rate: 4.1, count: 259 },
-//   image:
-//     "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png",
-//   quantity: 1,
+//   rating: {
+//     rate: 3.9,
+//     count: 120,
+//   },
 // };
 
-// // // Add to Cart
-
-// // db.users.updateOne({ username: 'test' }, {
-// //   $push: { cart: { ...product1, quantity: 1 } }
-// // });
-
-// // db.users.updateOne({ username: 'test' }, {
-// //   $push: { "cart.items": { ...product1, quantity: 1 } }
-// // });
-
-// // db.users.find({ username: "test" });
-
-// // db.users.findOneAndUpdate({ username: 'test' }, {
-// //   $push: { cart: { ...product2, quantity: 1 } }
-// // },
-// //   { new: true }
-// // )
-
-// // db.users.findOneAndUpdate({ username: 'test' }, {
-// //   $push: { "cart.items": { ...product2, quantity: 1 } }
-// // },
-// //   { new: true }
-// // )
-
-// // Remove from Cart
-
-// // db.users.findOneAndUpdate({ username: "test" },
-// //   {
-// //     $pull: { discounts: "ICICI" }
-// //   }
-// //   , { new: true });
-
-// // db.users.findOneAndUpdate({ username: "test" },
-// //   {
-// //     $pullAll: { discounts: ["SBI", "AXIS"] }
-// //   }
-// //   , { new: true });
-
-// // remove product 1 from cart
-
-// // db.users.findOneAndUpdate({ username: "test" }, {
-// //   $pull: {
-// //     "cart.items": { id: 1 }
-// //   }
-// // }, { new: true });
-
-// // increment product1 quantity by 1
-
-// db.users.findOneAndUpdate({ username: 'test', "cart.items.id": product1.id }, {
-//   // $ tell the index of the item in array to be updated
-//   $inc: { "cart.items.$.quantity": 1 }
-// }, { new: true });
-
-// // // refer the js program for updating cart items  - 
-// // const cart = {
-// //     items: [
-// //         {
-// //             price: 109.95,
-// //             title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-// //             id: 1,
-// //             description: 'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
-// //             image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
-// //             category: 'men\'s clothing',
-// //             rating: {
-// //                 rate: 3.9,
-// //                 count: 120
-// //             },
-// //             quantity: 1
-// //         },
-// //         {
-// //             id: 2,
-// //             title: 'Mens Casual Premium Slim Fit T-Shirts ',
-// //             price: 22.3,
-// //             description: 'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.',
-// //             category: 'men\'s clothing',
-// //             rating: {
-// //                 rate: 4.1,
-// //                 count: 259
-// //             },
-// //             image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png',
-// //             quantity: 1
-// //         }
-// //     ]
+// // const product2 = {
+// //   id: 2,
+// //   title: "Mens Casual Premium Slim Fit T-Shirts ",
+// //   price: 22.3,
+// //   description:
+// //     "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+// //   category: "men's clothing",
+// //   rating: { rate: 4.1, count: 259 },
+// //   image:
+// //     "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png",
+// //   quantity: 1,
 // // };
 
-// // const idx = cart.items.findIndex(({ id }) => id === 2)
-// // cart.items[idx].quantity += 1
-// // console.log(cart)
+// // // // Add to Cart
 
-// // decrement operation
+// // // db.users.updateOne({ username: 'test' }, {
+// // //   $push: { cart: { ...product1, quantity: 1 } }
+// // // });
 
-// db.users.findOneAndUpdate({ username: 'test', "cart.items.id": product1.id }, {
-//   // $ tell the index of the item in array to be updated
-//   $inc: { "cart.items.$.quantity": -1 }
-// }, { new: true });
+// // // db.users.updateOne({ username: 'test' }, {
+// // //   $push: { "cart.items": { ...product1, quantity: 1 } }
+// // // });
 
+// // // db.users.find({ username: "test" });
+
+// // // db.users.findOneAndUpdate({ username: 'test' }, {
+// // //   $push: { cart: { ...product2, quantity: 1 } }
+// // // },
+// // //   { new: true }
+// // // )
+
+// // // db.users.findOneAndUpdate({ username: 'test' }, {
+// // //   $push: { "cart.items": { ...product2, quantity: 1 } }
+// // // },
+// // //   { new: true }
+// // // )
+
+// // // Remove from Cart
+
+// // // db.users.findOneAndUpdate({ username: "test" },
+// // //   {
+// // //     $pull: { discounts: "ICICI" }
+// // //   }
+// // //   , { new: true });
+
+// // // db.users.findOneAndUpdate({ username: "test" },
+// // //   {
+// // //     $pullAll: { discounts: ["SBI", "AXIS"] }
+// // //   }
+// // //   , { new: true });
+
+// // // remove product 1 from cart
+
+// // // db.users.findOneAndUpdate({ username: "test" }, {
+// // //   $pull: {
+// // //     "cart.items": { id: 1 }
+// // //   }
+// // // }, { new: true });
+
+// // // increment product1 quantity by 1
+
+// // db.users.findOneAndUpdate({ username: 'test', "cart.items.id": product1.id }, {
+// //   // $ tell the index of the item in array to be updated
+// //   $inc: { "cart.items.$.quantity": 1 }
+// // }, { new: true });
+
+// // // // refer the js program for updating cart items  - 
+// // // const cart = {
+// // //     items: [
+// // //         {
+// // //             price: 109.95,
+// // //             title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
+// // //             id: 1,
+// // //             description: 'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
+// // //             image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
+// // //             category: 'men\'s clothing',
+// // //             rating: {
+// // //                 rate: 3.9,
+// // //                 count: 120
+// // //             },
+// // //             quantity: 1
+// // //         },
+// // //         {
+// // //             id: 2,
+// // //             title: 'Mens Casual Premium Slim Fit T-Shirts ',
+// // //             price: 22.3,
+// // //             description: 'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.',
+// // //             category: 'men\'s clothing',
+// // //             rating: {
+// // //                 rate: 4.1,
+// // //                 count: 259
+// // //             },
+// // //             image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png',
+// // //             quantity: 1
+// // //         }
+// // //     ]
+// // // };
+
+// // // const idx = cart.items.findIndex(({ id }) => id === 2)
+// // // cart.items[idx].quantity += 1
+// // // console.log(cart)
+
+// // // decrement operation
+
+// // db.users.findOneAndUpdate({ username: 'test', "cart.items.id": product1.id }, {
+// //   // $ tell the index of the item in array to be updated
+// //   $inc: { "cart.items.$.quantity": -1 }
+// // }, { new: true });
+
+// // db.users.findOneAndUpdate({ username: 'test' }, {
+// //   $pull: { "cart.items": { id: 1 } }
+// // }, { new: true })
+
+
+// // // find the quantity of particular item
+// // // if (qty ===1) removeFromCart()
+// //   // else decrement()
+
+// // db.users.find();
+
+// // db.users.findOneAndUpdate({ username: "test" }, {
+// //   $push: { discounts: "ICICI" }
+// // }, { new: true });
+
+// // db.users.findOneAndUpdate({ username: "test" }, {
+// //   $pull: { discounts: "ICICI" }
+// // }, { new: true });
+
+// // db.users.findOneAndUpdate({ username: "test" }, {
+// //   $pullAll: { discounts: ["SBI", "HDFC", "AXIS"] }
+// // }, { new: true });
+
+// db.users.find()
+// // add new field or update existing using $set operator
 // db.users.findOneAndUpdate({ username: 'test' }, {
-//   $pull: { "cart.items": { id: 1 } }
+//   $set: { userid: "abcd" }
 // }, { new: true })
 
-
-// // find the quantity of particular item
-// // if (qty ===1) removeFromCart()
-//   // else decrement()
-
-// db.users.find();
-
-// db.users.findOneAndUpdate({ username: "test" }, {
-//   $push: { discounts: "ICICI" }
+// // remove the field from collection
+// db.users.findOneAndUpdate({ username: 'test' }, {
+//   $unset: { "discounts": 1 }
 // }, { new: true });
 
-// db.users.findOneAndUpdate({ username: "test" }, {
-//   $pull: { discounts: "ICICI" }
-// }, { new: true });
 
-// db.users.findOneAndUpdate({ username: "test" }, {
-//   $pullAll: { discounts: ["SBI", "HDFC", "AXIS"] }
-// }, { new: true });
+db.users.aggregate([
+  {
+    $match: {
+      username: 'test'
+    }
+  }, 
+  {
+    $unwind: {
+      path: "$cart.items",
+    }
+  }, 
+  {
+    $match: {
+      "cart.items.id": 1
+    }
+  }, 
+  {
+    $project: {
+      "cart.items.quantity":true,
+      "cart.items.price":true,
+    }
+  }
+])
 
-db.users.find()
-// add new field or update existing using $set operator
-db.users.findOneAndUpdate({ username: 'test' }, {
-  $set: { userid: "abcd" }
-}, { new: true })
-
-// remove the field from collection
-db.users.findOneAndUpdate({ username: 'test' }, {
-  $unset: { "discounts": 1 }
-}, { new: true });
-
+db.users.aggregate([
+  {
+    $match: {
+      username: 'test'
+    }
+  }, 
+  {
+    $unwind: {
+      path: "$cart.items",
+    }
+  }
+])

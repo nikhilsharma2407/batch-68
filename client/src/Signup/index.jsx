@@ -5,6 +5,7 @@ import {
     FormText, Row
 } from 'react-bootstrap'
 import signupReducer, { initialState } from './signupReducer';
+import { axiosInstance, ENDPOINTS } from '../apiUtil';
 
 
 const Signup = () => {
@@ -17,6 +18,15 @@ const Signup = () => {
         dispatch(action);
     }
 
+    const onSignup = async () => {
+        const payload = {}
+        Object.entries(state).forEach(([key, val]) => {
+            if (key !== 'confirmPassword')
+                payload[key] = val.value
+        });
+        const { data } = await axiosInstance.post(ENDPOINTS.USER.SIGNUP, payload)
+        console.log("🚀 ~ onSignup ~ data :", data)
+    }
 
 
     return (
@@ -48,7 +58,7 @@ const Signup = () => {
                             ))}
                         </CardBody>
                         <CardFooter>
-                            <Button variant='outline-primary' >Sign Up</Button>
+                            <Button variant='outline-primary' onClick={onSignup}>Sign Up</Button>
                         </CardFooter>
                     </Card>
                 </Col>
