@@ -7,10 +7,13 @@ import { useIsFetching, useIsMutating, useQuery } from '@tanstack/react-query';
 import { axiosInstance, ENDPOINTS } from './apiUtil';
 import { UserContext } from './UserContextProvider';
 import { toast } from 'react-toastify';
+import { useCartSSE } from './hooks/useCart';
 
 const App = () => {
 
   const { setUserData } = useContext(UserContext);
+
+  useCartSSE();
 
   const { data } = useQuery({
     queryKey: ['userData'],

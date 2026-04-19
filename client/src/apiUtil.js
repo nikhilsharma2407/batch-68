@@ -2,8 +2,14 @@ import axios from "axios";
 
 export const axiosInstance = axios.create({
     baseURL: 'http://localhost:4000',
-    withCredentials:true,
+    withCredentials: true,
 });
+
+// Stable session ID for this browser tab — used to identify the sender
+// so the server can skip notifying the tab that triggered the mutation.
+export const SESSION_ID = crypto.randomUUID();
+
+export const BASE_URL = 'http://localhost:4000';
 
 export const ENDPOINTS = {
     USER: {
@@ -21,5 +27,6 @@ export const ENDPOINTS = {
         INCREMENT: '/cart/increment/',
         DECREMENT: '/cart/decrement/',
         CLEAR: '/cart/clear',
+        EVENTS: '/cart/events',
     }
 }
