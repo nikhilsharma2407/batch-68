@@ -117,3 +117,8 @@ export const resetPassword = async (req, res, next) => {
         next(error)
     }
 };
+
+export const logout = async (req,res,next)=>{
+    res.clearCookie('authToken');
+    res.send(responseCreator("Logged out"))
+}

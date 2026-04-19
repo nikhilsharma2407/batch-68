@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import routes from './routes';
+import UserContextProvider from './UserContextProvider';
 
 const queryClient = new QueryClient();
 
@@ -18,9 +19,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
-
-
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
+    
     {/* declarative routing */}
     {/* <BrowserRouter>
       <Routes>

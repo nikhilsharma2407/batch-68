@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+import { axiosInstance, ENDPOINTS } from './apiUtil';
 
 const ProtectedRoute = () => {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-    const [navigateToLogin, setNavigateToLogin] = useState(null);
+    const { isLoading, data } = useQuery({
+        queryKey: ['userData'],
+        queryFn: () => axiosInstance.get(ENDPOINTS.USER.LOGIN),
+        staleTime: Infinity,
+        refetchOnWindowFocus: false,
+        retry: false,
+    });
+    console.log("🚀 ~ ProtectedRoute ~ data:", data)
+    console.log("🚀 ~ ProtectedRoute ~ isLoading:", isLoading)
 
     const { pathname } = useLocation();
 
-    useEffect(() => {
-        setTimeout(() => {
-            if (!isLoggedIn) {
-                setNavigateToLogin(true);
-            } else {
-                setNavigateToLogin(false)
-            }
-        }, 2000);
-    }, [isLoggedIn])
+    if (isLoading) return null;
 
-
-    if (navigateToLogin === true) {
+    if (!data) {
         return <Navigate to="/login" replace state={pathname} />
-    } else if (navigateToLogin === false) {
-        return <Outlet />
     }
-    return <h1>Checking login status</h1>
+
+    return <Outlet />
 }
 
 export default ProtectedRoute

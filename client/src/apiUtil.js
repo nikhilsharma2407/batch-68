@@ -12,5 +12,14 @@ export const ENDPOINTS = {
         RESET_PASSWORD: '/user/reset-password',
         TWO_FA_SETUP: '/user/2fa-setup',
         QR_CODE: '/user/qr-code',
+        LOGOUT: '/user/logout',
+    },
+    CART: {
+        GET: '/cart/',
+        ADD: '/cart/add/',
+        REMOVE: '/cart/remove/',
+        INCREMENT: '/cart/increment/',
+        DECREMENT: '/cart/decrement/',
+        CLEAR: '/cart/clear',
     }
 }

@@ -1,24 +1,34 @@
-import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, FormControl, FormGroup, FormLabel, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router'
 import { axiosInstance, ENDPOINTS } from './apiUtil';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { UserContext } from './UserContextProvider';
 
 const Login = () => {
+  const { userData, setUserData } = useContext(UserContext);
+  console.log("🚀 ~ Login ~ userData:", userData)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const onLogin = async () => {
-    const payload = { username, password };
-    const { data } = (await axiosInstance.post(ENDPOINTS.USER.LOGIN, payload));
-    console.log("🚀 ~ onLogin ~ data:", data)
-    if (state) {
-      navigate(state);
-    }
-  };
+  const { mutate: login, isPending, isError, error } = useMutation({
+    mutationFn: (payload) => axiosInstance.post(ENDPOINTS.USER.LOGIN, payload),
+    onSuccess: ({ data: response }) => {
+      setUserData(response.data)
+      toast.success(response.message);
+      if (state) navigate(state);
+    },
+    onError: (err) => {
+      console.log(err);
+      toast.error(err?.response?.data?.message || 'Login failed');
+    },
+  });
+
+  const onLogin = () => login({ username, password });
 
   const isValid = username && password;
 
@@ -40,7 +50,9 @@ const Login = () => {
               </FormGroup>
             </CardBody>
             <CardFooter>
-              <Button variant='outline-primary' disabled={!isValid} onClick={onLogin}>Login</Button>
+              <Button variant='outline-primary' disabled={!isValid || isPending} onClick={onLogin}>
+                {isPending ? 'Logging in...' : 'Login'}
+              </Button>
             </CardFooter>
           </Card>
         </Col>

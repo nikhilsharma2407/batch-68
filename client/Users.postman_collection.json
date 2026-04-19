@@ -1,0 +1,484 @@
+{
+	"info": {
+		"_postman_id": "b35ae7ea-3f3e-404c-b104-a1e8c74b2032",
+		"name": "Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"nikhil101\",\r\n    \"password\": \"Qwerty@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generateQR CODE",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/qr-code",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"qr-code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2fa-setup",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"otp\":208917\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/2fa-setup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"2fa-setup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get cart",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/cart/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clear cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/cart/clear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"cart",
+						"clear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add to cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test\",\r\n    \"product\": {\r\n        \"price\": 109.95,\r\n        \"title\": \"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops\",\r\n        \"id\": 1,\r\n        \"image\": \"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png\",\r\n        \"description\": \"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday\",\r\n        \"category\": \"men's clothing\",\r\n        \"rating\": {\r\n            \"rate\": 3.9,\r\n            \"count\": 120\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/cart/add/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"cart",
+						"add",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\": \"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops\",\r\n        \"id\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/cart/remove/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"cart",
+						"remove",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "increment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test\",\r\n    \"product\": {\r\n        \"price\": 109.95,\r\n        \"title\": \"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops\",\r\n        \"id\": 1,\r\n        \"image\": \"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png\",\r\n        \"description\": \"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday\",\r\n        \"category\": \"men's clothing\",\r\n        \"rating\": {\r\n            \"rate\": 3.9,\r\n            \"count\": 120\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/cart/increment/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"cart",
+						"increment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "decrement",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEyMyIsImlhdCI6MTc0OTkwNDQ0NywiZXhwIjoxNzQ5OTA4MDQ3fQ.x-MthnJ3jQORTGfruqMc4Ji9Lg3QEFqSogMBdmd_d4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test\",\r\n    \"product\": {\r\n        \"price\": 109.95,\r\n        \"title\": \"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops\",\r\n        \"id\": 1,\r\n        \"image\": \"https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png\",\r\n        \"description\": \"Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday\",\r\n        \"category\": \"men's clothing\",\r\n        \"rating\": {\r\n            \"rate\": 3.9,\r\n            \"count\": 120\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/cart/decrement/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"cart",
+						"decrement",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login with cookie",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"test\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"Qwerty@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resetPwd",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test\",\r\n    \"newPassword\": \"123\",\r\n    \"otp\":189408\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/reset-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"reset-password"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

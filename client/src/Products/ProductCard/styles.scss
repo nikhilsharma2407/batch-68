@@ -40,3 +40,18 @@
     height: 56px;
   }
 }
+
+.cart-counter {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  transition: filter 0.2s;
+
+  &.disabled {
+    filter: grayscale(1);
+  }
+}
+
+.cursor-disabled {
+  cursor: not-allowed !important;
+}
