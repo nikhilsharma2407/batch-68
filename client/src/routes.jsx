@@ -1,4 +1,5 @@
 import Cart from "./Cart";
+import Counter from "./Counter";
 import Flexbox from "./Flexbox";
 import Login from "./Login";
 import Orders from "./Orders";
@@ -27,6 +28,10 @@ const routes = [
     {
         path: 'signup',
         element: <Signup />
+    },
+    {
+        path: 'counter',
+        element: <Counter />
     },
 
     {

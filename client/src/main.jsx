@@ -6,8 +6,22 @@ import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes } fro
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import routes from './routes';
 import UserContextProvider from './UserContextProvider';
+import { configureStore } from '@reduxjs/toolkit'
+import countReducer from './reducers/countReducer';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import { thunk } from 'redux-thunk';
+
+const logger = createLogger();
+
+const store = configureStore({
+  reducer: countReducer,
+  middleware: () => [thunk, logger]
+})
 
 const queryClient = new QueryClient();
+
+
 
 const router = createBrowserRouter([
   {
@@ -20,9 +34,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
     <UserContextProvider>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </UserContextProvider>
-    
+
     {/* declarative routing */}
     {/* <BrowserRouter>
       <Routes>

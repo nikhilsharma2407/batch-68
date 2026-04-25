@@ -1,0 +1,13 @@
+.signup {
+    .password {
+        position: absolute;
+        top: 36px;
+        right: 10px;
+        cursor: pointer;
+        &.error{
+            right: 30px;
+        }
+    }
+
+    
+}

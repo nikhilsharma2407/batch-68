@@ -71,17 +71,26 @@ const signupReducer = (state = initialState, action) => {
         ...state,
         [type]: {
           value: payload,
-          isValid: payload.length > 0 && EMAIL_PATTERN.test(payload),
+          strongPwdValidation: {
+            hasLowerCase: /[a-z]/.test(payload),
+            hasUpperCase: /[A-Z]/.test(payload),
+            hasDigit: /\d/.test(payload),
+            hasSpecialCharacter: /[\W, _]/.test(payload),
+            meetsMinChRequirement: payload.length >= 8,
+          },
           isDirty: true,
         },
       };
     case ACTION_TYPES.USERNAME:
-    case ACTION_TYPES.CONFIRM_PASSWORD:
       return {
         ...state,
         [type]: { value: payload, isValid: payload.length > 0, isDirty: true },
       };
-
+    case ACTION_TYPES.CONFIRM_PASSWORD:
+      return {
+        ...state,
+        [type]: { value: payload, isValid: payload.length > 0 && payload === state.password.value, isDirty: true },
+      }
     default:
       return state;
   }

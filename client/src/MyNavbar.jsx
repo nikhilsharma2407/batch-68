@@ -37,6 +37,7 @@ function MyNavbar() {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="flex">Flexbox</Nav.Link>
                         <Nav.Link as={Link} to="routing/apple-iphone-16-black-128-gb?query=iPhone&location=IN">Routing</Nav.Link>
+                        <Nav.Link as={Link} to="counter">Counter</Nav.Link>
                     </Nav>
                     <Nav>
                         {!user ? <>
