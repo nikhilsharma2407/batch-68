@@ -7,6 +7,7 @@ import Products from "./Products";
 import ProtectedRoute from "./ProtectedRoute";
 import Routing from "./Routing";
 import Signup from "./Signup";
+import TwoFAsetup from "./TwoFAsetup";
 
 const routes = [
     {
@@ -38,6 +39,7 @@ const routes = [
         path: 'user',
         element: <ProtectedRoute />,
         children: [
+            { path: '2fa-setup', element: <TwoFAsetup /> },
             { path: 'cart', element: <Cart /> },
             { path: 'orders', element: <Orders /> },
         ]

@@ -1,4 +1,4 @@
-import { Button, Form } from 'react-bootstrap';
+import { Badge, Button, Form } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,9 +8,16 @@ import { useUserContext } from './UserContextProvider';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosInstance, ENDPOINTS } from './apiUtil';
 import { toast } from 'react-toastify';
+import { Cart } from 'react-bootstrap-icons';
+import { useGetCart } from './hooks/useCart';
 
 function MyNavbar() {
     const user = useIsLoggedIn();
+    console.log("🚀 ~ MyNavbar ~ user:", user)
+    const { data: cart } = useGetCart()
+    console.log("🚀 ~ MyNavbar ~ cart:", cart)
+    const totalQuantity = cart?.totalQuantity
+    console.log("🚀 ~ MyNavbar ~ totalQuantity:", totalQuantity)
     const { setUserData } = useUserContext();
     const queryClient = useQueryClient();
 
@@ -43,7 +50,17 @@ function MyNavbar() {
                         {!user ? <>
                             <Nav.Link as={Link} to="/login">Login</Nav.Link>
                             <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
-                        </> : <Nav.Link onClick={onLogout}>Logout</Nav.Link>}
+                        </> :
+                            <>
+
+                                <Nav.Link as={Link} to='/user/2fa-setup'>2FA setup</Nav.Link>
+                                <Nav.Link as={Link} to='/user/cart'>
+                                    <Cart size={25} />
+                                    {totalQuantity && <Badge style={{ transform: `translate(-10px, -10px)` }} pill>{totalQuantity}</Badge>}
+                                </Nav.Link>
+                                <Nav.Link onClick={onLogout}>Logout</Nav.Link>
+                            </>
+                        }
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control

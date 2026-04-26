@@ -3,6 +3,7 @@ import { Badge, Button, Card, CardBody, CardFooter, CardHeader, CardImg, Col, Co
 import { Trash } from 'react-bootstrap-icons'
 import { useGetCart, useClearCart, useRemoveFromCart, useIncrementItem, useDecrementItem } from './hooks/useCart'
 import CartCounter from './Products/CartCounter'
+import { axiosInstance, ENDPOINTS } from './apiUtil'
 
 const Cart = () => {
     const { data: cart, isLoading, isError } = useGetCart();
@@ -15,7 +16,22 @@ const Cart = () => {
     if (isError) return <p className='p-4'>Failed to load cart.</p>;
 
     const items = cart?.items ?? [];
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = cart?.totalPrice;
+
+
+    const createCheckoutSession = async () => {
+        console.log("🚀 ~ createCheckoutSession ~ createCheckoutSession:")
+        try {
+            const { data } = (await axiosInstance.post(ENDPOINTS.STRIPE.CREATE_CHECKOUT_SESSION)).data;
+            console.log("🚀 ~ createCheckoutSession ~ data:", data);
+            if (data.url) {
+                // Redirect to Stripe Checkout, external navigation is required, so we can't use React Router's navigation.
+                window.location.href = data.url;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <Container className='py-4'>
@@ -45,8 +61,8 @@ const Cart = () => {
                                     <CardImg src={item.image} style={{ height: '150px', objectFit: 'contain' }} className='p-2' />
                                     <CardBody>
                                         <div className='d-flex justify-content-between'>
-                                            <span>${item.price}</span>
-                                            <Badge bg='secondary'>Subtotal: ${(item.price * item.quantity).toFixed(2)}</Badge>
+                                            <span>${item.unitPrice}</span>
+                                            <Badge bg='secondary'>Subtotal: ${(item.price).toFixed(2)}</Badge>
                                         </div>
                                     </CardBody>
                                     <CardFooter>
@@ -63,6 +79,9 @@ const Cart = () => {
                     </Row>
                     <div className='text-end mt-3'>
                         <h5>Total: ${total.toFixed(2)}</h5>
+                        <Button variant='primary' onClick={createCheckoutSession} className='mt-2'>
+                            Proceed to Checkout
+                        </Button>
                     </div>
                 </>
             )}

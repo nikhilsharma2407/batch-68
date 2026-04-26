@@ -28,5 +28,8 @@ export const ENDPOINTS = {
         DECREMENT: '/cart/decrement/',
         CLEAR: '/cart/clear',
         EVENTS: '/cart/events',
+    },
+    STRIPE:{
+        CREATE_CHECKOUT_SESSION: '/stripe/create-checkout-session',
     }
 }

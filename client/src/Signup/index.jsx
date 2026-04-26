@@ -12,6 +12,7 @@ import './styles.scss'
 const Signup = () => {
     const [state, dispatch] = useReducer(signupReducer, initialState);
     const [showPassword, setShowPassword] = useState(false);
+    
 
     const updateFormField = (e) => {
         const type = e.target.id;
@@ -35,6 +36,8 @@ const Signup = () => {
 
     const isPasswordValid = Object.values(state.password.strongPwdValidation).every(Boolean);
 
+
+    
 
     return (
         <Container fluid>

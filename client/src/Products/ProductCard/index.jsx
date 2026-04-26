@@ -19,7 +19,7 @@ const ProductCard = ({ id, title, price, description, category, image, rating })
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
-    const product = { id, title, price, description, category, image, rating };
+    const product = { id, title, unitPrice:price ,price, description, category, image, rating };
 
     const handleAddToCart = () => {
         if (!isLoggedIn) return navigate('/login', { state: pathname, replace: true });

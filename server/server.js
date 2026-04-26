@@ -7,6 +7,8 @@ import { errorHandler } from "./errorHandler.js";
 import cartRouter from "./routers/cartRouter.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
+import stripeRouter from "./routers/stripeRouter.js";
+import authController from "./controllers/authController.js";
 
 const app = express();
 
@@ -27,6 +29,7 @@ app.use(cookieParser())
 app.use('/router', router)
 app.use('/user', userRouter)
 app.use('/cart', cartRouter)
+app.use('/stripe', authController, stripeRouter)
 
 app.use((req, res, next) => {
   console.log('another global handler before errorHandler')

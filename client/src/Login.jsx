@@ -8,9 +8,10 @@ import { UserContext } from './UserContextProvider';
 
 const Login = () => {
   const { userData, setUserData } = useContext(UserContext);
-  console.log("🚀 ~ Login ~ userData:", userData)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [otp, setOtp] = useState('');
+  const [showResetForm, setShowResetForm] = useState(false);
 
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -32,6 +33,19 @@ const Login = () => {
 
   const isValid = username && password;
 
+  const passwordResetHandler = async () => {
+    try {
+      const { message } = await (await (axiosInstance.patch(ENDPOINTS.USER.RESET_PASSWORD,
+        { username, newPassword: password, otp }))).data
+      toast.success(message);
+
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+
+  };
+
+
   return (
     <Container fluid>
       <Row>
@@ -48,10 +62,22 @@ const Login = () => {
                 <FormLabel>password</FormLabel>
                 <FormControl onChange={e => setPassword(e.target.value)} placeholder='Enter password' type='password' />
               </FormGroup>
+              {
+                showResetForm && <FormGroup controlId='otp' className='mb-3'>
+                  <FormLabel>otp</FormLabel>
+                  <FormControl onChange={e => setOtp(e.target.value)} placeholder='Enter otp' type='number' />
+                </FormGroup>
+              }
+
             </CardBody>
-            <CardFooter>
-              <Button variant='outline-primary' disabled={!isValid || isPending} onClick={onLogin}>
-                {isPending ? 'Logging in...' : 'Login'}
+            <CardFooter className='d-flex'>
+              <Button variant='outline-primary' disabled={!isValid || isPending}
+                onClick={showResetForm ? passwordResetHandler : onLogin}>
+                {isPending ? 'Logging in...' : 'Submit'}
+              </Button>
+
+              <Button className='ms-auto' variant='link' onClick={() => setShowResetForm(true)}>
+                Forgot Password
               </Button>
             </CardFooter>
           </Card>
