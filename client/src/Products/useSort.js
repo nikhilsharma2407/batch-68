@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 
 // const arr = [1, 999, 100, 1000, 9];
@@ -33,30 +33,37 @@ const useSort = (products) => {
     console.log("🚀 ~ useSort ~ sortOrder:", sortOrder)
     console.log("🚀 ~ useSort ~ sortKey:", sortKey)
 
-    const sortedProducts = [...products]
 
-    sortedProducts.sort((a, b) => {
-        console.log('sorting')
-        if (activeSort === '') return 0;
-        
-        if (sortKey === SORT_OPTIONS.RATING) {
-            if (sortOrder === SORT_OPTIONS.INCREASING) {
-                return a.rating.rate - b.rating.rate
-            } else {
-                return b.rating.rate - a.rating.rate
-            }
-        } else if (sortKey === SORT_OPTIONS.PRICE) {
-
-            if (sortOrder === SORT_OPTIONS.INCREASING) {
-                // sort in ascending
-                return a[sortKey] - b[sortKey]
-
-            } else if (sortOrder === SORT_OPTIONS.DECREASING) {
-                // sort in descending
-                return b[sortKey] - a[sortKey]
-            }
+    const sortedProducts = useMemo(() => {
+        if (activeSort === '') {
+            return products;
         }
-    })
+
+        console.log('sorting')
+        return [...products].sort((a, b) => {
+            if (sortKey === SORT_OPTIONS.RATING) {
+                if (sortOrder === SORT_OPTIONS.INCREASING) {
+                    return a.rating.rate - b.rating.rate
+                } else {
+                    return b.rating.rate - a.rating.rate
+                }
+            } else if (sortKey === SORT_OPTIONS.PRICE) {
+
+                if (sortOrder === SORT_OPTIONS.INCREASING) {
+                    // sort in ascending
+                    return a[sortKey] - b[sortKey]
+
+                } else if (sortOrder === SORT_OPTIONS.DECREASING) {
+                    // sort in descending
+                    return b[sortKey] - a[sortKey]
+                }
+            }
+        });
+
+    }, [products, activeSort])
+
+
+
     console.log("🚀 ~ useSort ~ sortedProducts:", sortedProducts)
 
 

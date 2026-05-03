@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, Outlet } from 'react-router';
+import { Link, Outlet, useNavigate, useSearchParams } from 'react-router';
 import MyNavbar from './MyNavbar';
 import Toast from './Toast';
 import Loader from './Loader';
@@ -11,9 +11,45 @@ import { useCartSSE } from './hooks/useCart';
 
 const App = () => {
 
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const authToken = searchParams.get('authToken');
 
   useCartSSE();
+
+  // Magic link authentication query
+  const { data: magicLinkData, isError: isMagicLinkError, error: magicLinkError } = useQuery({
+    queryKey: ['magicLinkAuth', authToken],
+    queryFn: () => axiosInstance.get(`${ENDPOINTS.USER.LOGIN_WITH_MAGIC_LINK}?authToken=${authToken}`),
+    enabled: !!authToken,
+    retry: false,
+    staleTime: 0,
+  });
+
+  // Handle magic link authentication result
+  useEffect(() => {
+    if (magicLinkData) {
+      setUserData(magicLinkData.data);
+      toast.success(magicLinkData.data.message);
+      // Remove the token from URL
+      searchParams.delete('authToken');
+      setSearchParams(searchParams);
+      // Navigate to home
+      navigate('/');
+    }
+  }, [magicLinkData, setUserData, navigate, searchParams, setSearchParams]);
+
+  useEffect(() => {
+    if (isMagicLinkError) {
+      toast.error(magicLinkError?.response?.data?.message || 'Magic link authentication failed');
+      // Remove the token from URL
+      searchParams.delete('authToken');
+      setSearchParams(searchParams);
+      // Navigate to login
+      navigate('/login');
+    }
+  }, [isMagicLinkError, magicLinkError, navigate, searchParams, setSearchParams]);
 
   const { data } = useQuery({
     queryKey: ['userData'],
@@ -21,6 +57,7 @@ const App = () => {
     staleTime: 3600_000,
     refetchOnWindowFocus: false,
     retry: false,
+    enabled: !(authToken || userData), // Don't fetch user data if magic link auth is in progress
   });
 
   useEffect(() => {

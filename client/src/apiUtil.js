@@ -19,6 +19,8 @@ export const ENDPOINTS = {
         TWO_FA_SETUP: '/user/2fa-setup',
         QR_CODE: '/user/qr-code',
         LOGOUT: '/user/logout',
+        GENERATE_MAGIC_LINK: '/user/generate-magic-link',
+        LOGIN_WITH_MAGIC_LINK: '/user/login-with-magic-link',
     },
     CART: {
         GET: '/cart/',

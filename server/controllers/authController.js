@@ -2,7 +2,7 @@ import { verifyToken } from "../utils/jwtUtil.js";
 
 const authController = (req, res, next) => {
     try {
-        const { authToken } = req.cookies;
+        let { authToken } = req.cookies;
         const { username } = verifyToken(authToken);
         if (!username) {
             const error = new Error('Invalid Session, Please login to continue!!!');

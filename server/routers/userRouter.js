@@ -1,10 +1,12 @@
 import express from "express";
-import { getQRcode, login, loginWithCookie, logout, resetPassword, signup, twoFAsetup } from "../controllers/userController.js";
+import { generateMagicLink, getQRcode, login, loginViaMagicLink, loginWithCookie, logout, resetPassword, signup, twoFAsetup } from "../controllers/userController.js";
 import authController from "../controllers/authController.js";
 const userRouter = express.Router();
 
 userRouter.get('/login', authController, loginWithCookie);
+userRouter.get('/login-with-magic-link', loginViaMagicLink);
 userRouter.post('/login', login);
+userRouter.post('/generate-magic-link', generateMagicLink);
 userRouter.post('/signup', signup);
 userRouter.patch('/reset-password', resetPassword);
 
