@@ -15,6 +15,24 @@ const userSchema = new Schema({
         totalPrice: { type: Schema.Types.Decimal128, set: (v) => v.toFixed(2), get: (v) => parseFloat(v), default: 0 },
         totalQuantity: { type: Number, default: 0 },
     },
+    orders: [
+        {
+            sessionId: { type: String, required: true },
+            items: [
+                {
+                    title: String,
+                    image: String,
+                    quantity: Number,
+                    unitPrice: Number,
+                    totalPrice: Number,
+                }
+            ],
+            totalAmount: { type: Number, required: true },
+            currency: { type: String, default: 'inr' },
+            status: { type: String, default: 'paid' },
+            createdAt: { type: Date, default: Date.now },
+        }
+    ],
     secret: String,
 }, {
     toObject: { getters: true }
@@ -169,6 +187,30 @@ userSchema.statics.updateUserAcc = async function (username, data) {
         return true
     }
 }
+
+userSchema.statics.createOrder = async function (username, { sessionId, items, totalAmount, currency, status }) {
+    // Prevent duplicate orders for the same Stripe session
+    const existing = await this.findOne({ username, 'orders.sessionId': sessionId });
+    if (existing) {
+        const order = existing.toObject().orders.find(o => o.sessionId === sessionId);
+        return { order, created: false };
+    }
+
+    const order = { sessionId, items, totalAmount, currency, status, createdAt: new Date() };
+
+    await this.updateOne({ username }, {
+        $push: { orders: order },
+        // Clear the cart once the order is recorded
+        $set: { cart: { items: [], totalQuantity: 0, totalPrice: 0 } },
+    });
+
+    return { order, created: true };
+};
+
+userSchema.statics.getOrders = async function (username) {
+    const user = await this.findOne({ username }, { orders: 1, _id: 0 });
+    return sanitizeUserData(user)?.orders ?? [];
+};
 
 const UserModel = model('user', userSchema);
 

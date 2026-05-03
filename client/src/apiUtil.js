@@ -31,5 +31,6 @@ export const ENDPOINTS = {
     },
     STRIPE:{
         CREATE_CHECKOUT_SESSION: '/stripe/create-checkout-session',
+        GET_SESSION: (sessionId) => `/stripe/session/${sessionId}`,
     }
 }

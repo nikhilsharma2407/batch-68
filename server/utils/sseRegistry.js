@@ -71,3 +71,18 @@ export const notifyOtherSessions = (username, senderSessionId, debounceMs = 500)
 
     pendingNotifications.set(username, { timer, senderSessionId });
 };
+
+/**
+ * Notify ALL sessions of a user (no exclusions).
+ * Used for server-side events like order creation where there's no specific triggering session.
+ * 
+ * @param {string} username - The user whose sessions should be notified
+ */
+export const notifyAllSessions = (username) => {
+    const sessions = registry.get(username);
+    if (!sessions) return;
+    console.log(`[SSE] Notifying all sessions for user: ${username}`);
+    for (const client of sessions) {
+        client.res.write(`event: cart-updated\ndata: {}\n\n`);
+    }
+};

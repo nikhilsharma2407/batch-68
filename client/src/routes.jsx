@@ -1,3 +1,4 @@
+import Cancel from "./Cancel";
 import Cart from "./Cart";
 import Counter from "./Counter";
 import Flexbox from "./Flexbox";
@@ -7,6 +8,7 @@ import Products from "./Products";
 import ProtectedRoute from "./ProtectedRoute";
 import Routing from "./Routing";
 import Signup from "./Signup";
+import Success from "./Success";
 import TwoFAsetup from "./TwoFAsetup";
 
 const routes = [
@@ -43,6 +45,14 @@ const routes = [
             { path: 'cart', element: <Cart /> },
             { path: 'orders', element: <Orders /> },
         ]
+    },
+    {
+        path: 'success',
+        element: <Success />
+    },
+    {
+        path: 'cancel',
+        element: <Cancel />
     },
 ];
 

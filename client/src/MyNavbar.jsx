@@ -2,7 +2,7 @@ import { Badge, Button, Form } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import useIsLoggedIn from './hooks/useIsLoggedIn';
 import { useUserContext } from './UserContextProvider';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -20,6 +20,8 @@ function MyNavbar() {
     console.log("🚀 ~ MyNavbar ~ totalQuantity:", totalQuantity)
     const { setUserData } = useUserContext();
     const queryClient = useQueryClient();
+
+    const [, setSearchParams] = useSearchParams();
 
     const { mutate: logout } = useMutation({
         mutationFn: () => axiosInstance.get(ENDPOINTS.USER.LOGOUT),
@@ -56,7 +58,7 @@ function MyNavbar() {
                                 <Nav.Link as={Link} to='/user/2fa-setup'>2FA setup</Nav.Link>
                                 <Nav.Link as={Link} to='/user/cart'>
                                     <Cart size={25} />
-                                    {totalQuantity && <Badge style={{ transform: `translate(-10px, -10px)` }} pill>{totalQuantity}</Badge>}
+                                    {totalQuantity > 0 && <Badge style={{ transform: `translate(-10px, -10px)` }} pill>{totalQuantity}</Badge>}
                                 </Nav.Link>
                                 <Nav.Link onClick={onLogout}>Logout</Nav.Link>
                             </>
@@ -68,6 +70,9 @@ function MyNavbar() {
                             placeholder="Search"
                             className="me-2"
                             aria-label="Search"
+                            onChange={e=>{
+                                setSearchParams({search:e.target.value});
+                            }}
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>
