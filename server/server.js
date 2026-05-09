@@ -6,16 +6,16 @@ import userRouter from "./routers/userRouter.js";
 import { errorHandler } from "./errorHandler.js";
 import cartRouter from "./routers/cartRouter.js";
 import cookieParser from "cookie-parser";
-import cors from 'cors';
+// import cors from 'cors';
 import stripeRouter from "./routers/stripeRouter.js";
 import authController from "./controllers/authController.js";
 
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+// app.use(cors({
+//   origin: 'http://localhost:5173',
+//   credentials: true
+// }));
 
 // this middleware applies to all requests
 // allows our server to parse the req.body
@@ -60,7 +60,9 @@ app.use(errorHandler)
 //   res.send({ message: "Login successful!!!" });
 // })
 
-app.listen(4000, () => {
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
   console.clear();
-  console.log("server running on port 4000!!!");
+  console.log(`server running on port ${PORT}!!!`);
 });
