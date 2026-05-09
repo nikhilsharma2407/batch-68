@@ -155,17 +155,24 @@ export const generateMagicLink = async (req, res, next) => {
             </div>
         `;
 
-        const info = await transporter.sendMail({
-            from: process.env.EMAIL_USERNAME,
-            to: userData.email,
-            subject,
-            text,
-            html,
-        });
+        try {
+            const info = await transporter.sendMail({
+                from: process.env.EMAIL_USERNAME,
+                to: userData.email,
+                subject,
+                text,
+                html,
+            });
 
-        console.log("Magic link email sent:", info.messageId);
-        
-        res.send(responseCreator('Magic link sent to your email', { emailSent: true }));
+            console.log("Magic link email sent:", info.messageId);
+            res.send(responseCreator('Magic link sent to your email', { emailSent: true }));
+        } catch (emailError) {
+            console.error('Email sending failed:', emailError);
+            const error = new Error('Failed to send magic link email. Please try again later.');
+            error.status = 503;
+            error.code = emailError.code;
+            throw error;
+        }
 
     } catch (error) {
         next(error);
