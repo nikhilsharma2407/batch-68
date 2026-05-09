@@ -9,6 +9,13 @@ import cookieParser from "cookie-parser";
 import cors from 'cors';
 import stripeRouter from "./routers/stripeRouter.js";
 import authController from "./controllers/authController.js";
+import path from "path";
+
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const app = express();
 
@@ -31,10 +38,13 @@ app.use('/user', userRouter)
 app.use('/cart', cartRouter)
 app.use('/stripe', authController, stripeRouter)
 
-app.use((req, res, next) => {
-  console.log('another global handler before errorHandler')
-  res.send('global middleware')
-})
+app.use(express.static(path.join(__dirname, "public")));
+
+// regex for accept everything
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
 app.use(errorHandler)
 // app.use('/cart', cartRouter)
 // app.use('/admin', adminRouter)
@@ -56,8 +66,8 @@ app.use(errorHandler)
 //   res.status(500)
 //   res.send({ message: "Login successful!!!" });
 // })
-
-app.listen(4000, () => {
+const PORT = process.env.PORT || 4000
+app.listen(PORT, () => {
   console.clear();
-  console.log("server running on port 4000!!!");
+  console.log(`server running on port ${PORT}!!!`);
 });

@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build": "./deploy.sh",
+    "start": "npm --prefix server start"
+  }
+}
