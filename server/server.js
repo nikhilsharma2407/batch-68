@@ -31,10 +31,13 @@ app.use('/user', userRouter)
 app.use('/cart', cartRouter)
 app.use('/stripe', authController, stripeRouter)
 
-app.use((req, res, next) => {
-  console.log('another global handler before errorHandler')
-  res.send('global middleware')
-})
+app.use(express.static('public'));
+
+// Wildcard route to serve index.html for any unmatched routes on client (for SPA support)
+app.get(/.*/, (req, res) => {
+  res.sendFile('index.html', { root: 'public' });
+});
+
 app.use(errorHandler)
 // app.use('/cart', cartRouter)
 // app.use('/admin', adminRouter)

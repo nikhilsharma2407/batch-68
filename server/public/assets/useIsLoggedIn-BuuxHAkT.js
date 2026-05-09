@@ -1,0 +1,1 @@
+import{o as e,r as t}from"./jsx-runtime-CoWo_Ex4.js";import{t as n}from"./UserContextProvider-Cn-axejs.js";var r=e(t(),1),i=()=>{let{userData:e}=(0,r.useContext)(n);return e||!1};export{i as t};

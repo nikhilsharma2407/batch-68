@@ -129,7 +129,6 @@ export const generateMagicLink = async (req, res, next) => {
         const { username } = req.body;
         const userData = await UserModel.findUser(username);
         const token = generateToken(userData, '10m');
-
         const url = `${process.env.CLIENT_URL}?authToken=${token}`;
 
         const subject = 'Your Magic Link for Login';

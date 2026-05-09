@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router';
 import Sort from './Sort';
 import useSort from './useSort';
+import Loader from '../Loader';
 
 const fetchProducts = async () => {
     const res = await axios.get('https://fakestoreapi.com/products');
@@ -52,7 +53,7 @@ const Products = () => {
     const { activeSort, setActiveSort, sortedProducts } = useSort(filteredProducts);
 
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loader />;
     if (isError) return <p>Something went wrong.</p>;
 
 

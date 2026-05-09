@@ -1,0 +1,1 @@
+import{n as e,o as t,r as n,t as r}from"./jsx-runtime-CoWo_Ex4.js";var i=e();t(n(),1);var a=r(),o=()=>{let e=(0,i.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,a.jsx)(`div`,{children:`Orders`}),e[0]=t):t=e[0],t};export{o as default};

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Suspense, useContext, useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate, useSearchParams } from 'react-router';
 import MyNavbar from './MyNavbar';
 import Toast from './Toast';
@@ -92,7 +92,11 @@ const App = () => {
       {/* <Products /> */}
       {/* Outlet is a placeholder, will be replaced by matching route component */}
       <MyNavbar />
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
+      {/* {showComponent && <Counter />} */}
+      {/* <button onClick={() => setShowComponent(prev => !prev)}>Toggle Counter</button> */}
       <Toast />
     </>
   )
