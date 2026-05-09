@@ -51,8 +51,8 @@ const Products = () => {
 
     const { activeSort, setActiveSort, sortedProducts } = useSort(filteredProducts);
 
-
-    if (isLoading) return <p>Loading...</p>;
+alert("Products component rendered")
+    if (isLoading) return <p> Loading indicator test</p>;
     if (isError) return <p>Something went wrong.</p>;
 
 
