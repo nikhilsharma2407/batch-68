@@ -1,7 +1,10 @@
 import axios from "axios";
 
+const baseURL = import.meta.env.VITE_BASE_URL;
+console.log("🚀 ~ baseURL:", baseURL)
+
 export const axiosInstance = axios.create({
-    baseURL: '',
+    baseURL,
     withCredentials: true,
 });
 
@@ -9,7 +12,7 @@ export const axiosInstance = axios.create({
 // so the server can skip notifying the tab that triggered the mutation.
 export const SESSION_ID = crypto.randomUUID();
 
-export const BASE_URL = '';
+export const BASE_URL = baseURL;
 
 export const ENDPOINTS = {
     USER: {

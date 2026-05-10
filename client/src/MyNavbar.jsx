@@ -10,6 +10,7 @@ import { axiosInstance, ENDPOINTS } from './apiUtil';
 import { toast } from 'react-toastify';
 import { Cart } from 'react-bootstrap-icons';
 import { useGetCart } from './hooks/useCart';
+import { useEffect, useRef, useState } from 'react';
 
 function MyNavbar() {
     const user = useIsLoggedIn();
@@ -20,6 +21,10 @@ function MyNavbar() {
     console.log("🚀 ~ MyNavbar ~ totalQuantity:", totalQuantity)
     const { setUserData } = useUserContext();
     const queryClient = useQueryClient();
+
+    const timerRef = useRef(null);
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     const [, setSearchParams] = useSearchParams();
 
@@ -36,6 +41,19 @@ function MyNavbar() {
     });
 
     const onLogout = () => logout();
+
+    useEffect(() => {
+        if (timerRef.current) {
+            console.log('Clearing previous timer');
+            // if timer was already running, then cancel it and start a new timer
+            clearTimeout(timerRef.current)
+        };
+        timerRef.current = setTimeout(() => {
+            console.log('updating the search term');
+            setSearchParams({ search: searchTerm })
+        }, 500)
+    }, [searchTerm, setSearchParams])
+
 
     return (
         <Navbar collapseOnSelect expand="md" className="bg-dark mb-3" variant='dark'>
@@ -70,9 +88,12 @@ function MyNavbar() {
                             placeholder="Search"
                             className="me-2"
                             aria-label="Search"
-                            onChange={e=>{
-                                setSearchParams({search:e.target.value});
+                            onChange={e => {
+                                setSearchTerm(e.target.value);
                             }}
+                            // onChange={e => {
+                            //     setSearchParams({ search: e.target.value });
+                            // }}
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>

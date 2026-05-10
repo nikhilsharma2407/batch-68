@@ -6,16 +6,16 @@ import userRouter from "./routers/userRouter.js";
 import { errorHandler } from "./errorHandler.js";
 import cartRouter from "./routers/cartRouter.js";
 import cookieParser from "cookie-parser";
-// import cors from 'cors';
+import cors from 'cors';
 import stripeRouter from "./routers/stripeRouter.js";
 import authController from "./controllers/authController.js";
 
 const app = express();
 
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-//   credentials: true
-// }));
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 // this middleware applies to all requests
 // allows our server to parse the req.body

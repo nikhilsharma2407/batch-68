@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import ProductCard from './ProductCard';
 import { Container, Row } from 'react-bootstrap';
 import { useQuery } from '@tanstack/react-query';
@@ -17,6 +17,8 @@ const Products = () => {
     const [params] = useSearchParams();
     const searchTerm = params.get('search');
 
+    const timerRef = useRef(null);
+
     const { data: products = [], isLoading, isError } = useQuery({
         queryKey: ['products'],
         queryFn: fetchProducts,
@@ -24,7 +26,25 @@ const Products = () => {
         // staleTime: Infinity  // fetch once and always serve from cache
     });
 
-    
+    useEffect(() => {
+        console.log('useEffect')
+        const scrollFn = () => {
+            if (timerRef.current) {
+                // do nothing
+                return;
+            }
+            timerRef.current = setTimeout(() => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                console.log(`Scrolled: ${scrollPercent.toFixed(2)}%`);
+                timerRef.current = null;
+            }, 500);
+        };
+        document.addEventListener('scroll', scrollFn);
+
+        return () => document.removeEventListener('scroll', scrollFn);
+    }, [])
 
 
     // derived state
@@ -41,13 +61,15 @@ const Products = () => {
     //     return p.title.toLowerCase().includes(searchTerm.toLowerCase())
     // });
 
-    const filteredProducts = useMemo(() => products.filter(p => {
+    const filteredProducts = useMemo(() => {
         console.log("🚀 ~ Products ~ computing filteredProducts:")
-        if (!searchTerm) {
-            return true;
-        }
-        return p.title.toLowerCase().includes(searchTerm.toLowerCase())
-    }), [products, searchTerm]);
+        return products.filter(p => {
+            if (!searchTerm) {
+                return true;
+            }
+            return p.title.toLowerCase().includes(searchTerm.toLowerCase())
+        })
+    }, [products, searchTerm]);
 
 
     const { activeSort, setActiveSort, sortedProducts } = useSort(filteredProducts);
